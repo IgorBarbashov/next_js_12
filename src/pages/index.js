@@ -15,10 +15,10 @@ function Home() {
                     <h1>Welcome to the Next.js Course!</h1>
                 </div>
                 <div className = 'nav-link'>
-                    <Link href = '/profile'>Profile</Link>
+                    <Link href = '/profile'>Profile page</Link>
                 </div>
                 <div className = 'nav-link'>
-                    <Link href = '/about'>About</Link>
+                    <Link href = '/about'>About page</Link>
                 </div>
             </main>
         </div>
