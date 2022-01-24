@@ -18,6 +18,11 @@ a {
 .greeting {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.nav-link {
+  margin: 10px 0;
 }
