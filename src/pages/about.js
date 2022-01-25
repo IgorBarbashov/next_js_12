@@ -1,6 +1,27 @@
-function AboutPage() {
+// Core
+import { useEffect } from 'react';
+import { setCookie } from 'nookies';
+
+function AboutPage({ title }) {
+    useEffect(() => {
+
+    }, []);
+
     return (
-        <h1>Welcome About Page</h1>
+        <div>
+            { title }
+        </div>
     );
 }
+
+export const getServerSideProps = async (context) => {
+    setCookie(context, 'auth', 'true');
+
+    return {
+        props: {
+            title: 'AboutPage',
+        },
+    };
+};
+
 export default AboutPage;
