@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export function FooterComponent() {
     return (
         <footer className = 'footer mt-30'>
@@ -12,9 +14,12 @@ export function FooterComponent() {
                                             <p>
                                                 © 2021
                                                 { ' ' }
-                                                <strong>Lectrum LLC</strong>
-                                                . All Rights
-                                                Reserved.
+                                                <Link href = '/'>
+                                                    <a className = 'footer-link'>
+                                                        <strong>Lectrum LLC</strong>
+                                                    </a>
+                                                </Link>
+                                                . All Rights Reserved.
                                             </p>
                                         </li>
                                     </ul>
