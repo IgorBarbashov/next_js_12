@@ -1,4 +1,4 @@
-export function CourseElement() {
+export function CourseCardElement() {
     return (
         <div className = 'fcrse_1 mb-20'>
             <a href = 'course_detail_view.html' className = 'fcrse_img'>

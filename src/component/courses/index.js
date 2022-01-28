@@ -1,5 +1,5 @@
 // Elements
-import { CourseElement } from '../../elements/course';
+import { CourseCardElement } from '../../elements/courseCard';
 
 export function CoursesComponent({
     courses,
@@ -8,7 +8,7 @@ export function CoursesComponent({
         const key = `id-${index}`;
         return (
             <div className = 'item' key = { key }>
-                <CourseElement />
+                <CourseCardElement />
             </div>
         );
     });
