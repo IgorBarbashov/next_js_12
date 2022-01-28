@@ -1,6 +1,6 @@
 export function CourseComponent() {
     return (
-        <div className = 'wrapper _bg4586'>
+        <div>
             <div className = '_215b01'>
                 <div className = 'container-fluid'>
                     <div className = 'row'>
