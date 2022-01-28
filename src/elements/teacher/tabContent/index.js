@@ -3,11 +3,11 @@ import { TeacherCourses } from './courses';
 import { useStore } from '../../../lib/context/contextProvider';
 
 export function TeacherTabContent() {
-    const { courses, slug } = useStore();
+    const { slug } = useStore();
 
     const tabs = {
         about: <TeacherAbout />,
-        courses: <TeacherCourses courses = { courses } />,
+        courses: <TeacherCourses />,
     };
 
     return (

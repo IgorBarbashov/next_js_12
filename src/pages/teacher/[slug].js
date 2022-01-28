@@ -2,6 +2,7 @@ import { AppView } from '../../views/app';
 import { HeaderComponent } from '../../component/header';
 import { TeacherComponent } from '../../component/teacher';
 import { FooterComponent } from '../../component/footer';
+import { CourseService } from '../../services';
 
 export default function TeacherPage() {
     return (
@@ -13,19 +14,29 @@ export default function TeacherPage() {
     );
 }
 
-export const getServerSideProps = ({ query: { slug } }) => {
+export const getServerSideProps = async ({ query: { slug } }) => {
     const avatarSrc = '/images/hd_dp.jpg';
     const name = 'Joginder Singh';
     const professional = 'UI / UX Designer and Web Developer';
-    const courses = [{}, {}, {}, {}]; // TODO
+    let courses = null;
+
+    const courseService = new CourseService();
+    try {
+        const { data } = await courseService.get();
+        courses = data?.data || null;
+    } catch (e) {
+        console.error('API error');
+    }
 
     return {
         props: {
-            avatarSrc,
-            name,
-            professional,
-            courses,
-            slug,
+            defaultData: {
+                avatarSrc,
+                name,
+                professional,
+                courses,
+                slug,
+            },
         },
     };
 };
