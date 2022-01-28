@@ -1,12 +1,12 @@
 export function TeacherAbout() {
     return (
         <div
-            className="tab-pane fade show active"
-            id="nav-about"
-            role="tabpanel"
+            className = 'tab-pane fade show active'
+            id = 'nav-about'
+            role = 'tabpanel'
         >
-            <div className="_htg451">
-                <div className="_htg452">
+            <div className = '_htg451'>
+                <div className = '_htg452'>
                     <h3>About Me</h3>
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing

@@ -4,12 +4,14 @@ export function ProfileCardComponent() {
     return (
         <div className = 'fcrse_2 mb-30'>
             <div className = 'tutor_img'>
-                <a href = '#'><img src = '/images/hd_dp.jpg' alt = '' /></a>
+                <Link href = '/teacher/about'>
+                    <a><img src = '/images/hd_dp.jpg' alt = '' /></a>
+                </Link>
             </div>
             <div className = 'tutor_content_dt'>
                 <div className = 'tutor150'>
-                    <Link href={`/teacher/about`}>
-                        <a className = 'prfle12link' >Joginder Singh</a>
+                    <Link href = '/teacher/about'>
+                        <a className = 'prfle12link'>Joginder Singh</a>
                     </Link>
                     <div className = 'mef78' title = 'Verify'>
                         <i className = 'uil uil-check-circle' />
@@ -23,8 +25,8 @@ export function ProfileCardComponent() {
                     <span className = 'vdt15'>615K Students</span>
                     <span className = 'vdt15'>12 Courses</span>
                 </div>
-                <Link href={`/teacher/about`}>
-                    <a className = 'prfle12link' >Go To Profile</a>
+                <Link href = '/teacher/about'>
+                    <a className = 'prfle12link'>Go To Profile</a>
                 </Link>
             </div>
         </div>

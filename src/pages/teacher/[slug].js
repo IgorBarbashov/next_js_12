@@ -1,10 +1,7 @@
 import { AppView } from '../../views/app';
 import { HeaderComponent } from '../../component/header';
-import { TeacherView } from '../../views/teacher';
+import { TeacherComponent } from '../../component/teacher';
 import { FooterComponent } from '../../component/footer';
-import { TeacherHeader } from '../../elements/teacher/header';
-import { TeacherTabs } from '../../elements/teacher/tabs';
-import { TeacherTabContent } from '../../elements/teacher/tabContent';
 
 export default function TeacherPage({
     avatarSrc,
@@ -13,18 +10,15 @@ export default function TeacherPage({
     courses,
     slug,
 }) {
-    const contentJSX = (
-        <TeacherView
-            header = { <TeacherHeader { ...{ avatarSrc, name, professional } } /> }
-            tabs = { <TeacherTabs slug = { slug } /> }
-            content = { <TeacherTabContent { ...{ courses, slug } } /> }
-        />
-    );
-
     return (
         <AppView
             header = { <HeaderComponent /> }
-            content = { contentJSX }
+            content = { (
+                <TeacherComponent { ...{
+                    avatarSrc, name, professional, courses, slug,
+                } }
+                />
+            ) }
             footer = { <FooterComponent /> }
         />
     );
