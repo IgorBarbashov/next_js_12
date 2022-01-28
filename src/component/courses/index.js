@@ -7,11 +7,11 @@ import { useStore } from '../../lib/context/contextProvider';
 export function CoursesComponent() {
     const { courses } = useStore();
 
-    const coursesJSX = courses.map((_, index) => {
-        const key = `id-${index}`;
+    const coursesJSX = courses.map((course) => {
+        const key = `id-${course.hash}`;
         return (
             <div className = 'item' key = { key }>
-                <CourseCardElement />
+                <CourseCardElement course = { course } />
             </div>
         );
     });

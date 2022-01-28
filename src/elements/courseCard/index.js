@@ -1,47 +1,55 @@
 import Link from 'next/link';
+import { daysToNow, formatThousandsAndMillions } from '../../utils';
 
-export function CourseCardElement() {
+export function CourseCardElement({
+    course,
+}) {
+    const {
+        hash, poster, badge, rating, views, duration, technologies, description, price, created,
+    } = course;
+
     return (
         <div className = 'fcrse_1 mb-20'>
-            <Link href = '/courses/1'>
+            <Link href = { `/courses/${hash}` }>
                 <a className = 'fcrse_img'>
-                    <img src = '/images/courses/img-1.jpg' alt = '' />
+                    <img src = { poster } alt = '' />
                     <div className = 'course-overlay'>
-                        <div className = 'badge_seller'>Bestseller</div>
+                        { badge ? <div className = 'badge_seller'>Bestseller</div> : null }
                         <div className = 'crse_reviews'>
                             <i className = 'uil uil-star' />
-                            4.5
+                            { rating }
                         </div>
-                        <div className = 'crse_timer'>25 hours</div>
+                        <div className = 'crse_timer'>
+                            { `${duration} hours` }
+                        </div>
                     </div>
                 </a>
             </Link>
             <div className = 'fcrse_content'>
                 <div className = 'vdtodt'>
-                    <span className = 'vdt14'>109k views</span>
-                    <span className = 'vdt14'>15 days ago</span>
+                    <span className = 'vdt14'>
+                        { `${formatThousandsAndMillions(views)} views` }
+                    </span>
+                    <span className = 'vdt14'>{ `${daysToNow(created)} days ago` }</span>
                 </div>
-                <a
-                    href = 'course_detail_view.html'
-                    className = 'crse14s'
-                >
-                    Complete Python Bootcamp: Go from zero to hero in
-                    Python 3
-                </a
-                >
-                <a
-                    href = '#'
-                    className = 'crse-cate'
-                >
-                    Web Development | Python
-                </a
-                >
+                <Link href = { `/courses/${hash}` }>
+                    <a className = 'crse14s'>
+                        { description }
+                    </a>
+                </Link>
+                <Link href = { `/courses/${hash}` }>
+                    <a className = 'crse-cate'>
+                        { technologies }
+                    </a>
+                </Link>
                 <div className = 'auth1lnkprce'>
                     <p className = 'cr1fot'>
                         By
-                        <a href = '#'>John Doe</a>
+                        <Link href = '/teacher/about'>
+                            <a>John Doe</a>
+                        </Link>
                     </p>
-                    <div className = 'prce142'>$10</div>
+                    <div className = 'prce142'>{ `$${price}` }</div>
                 </div>
             </div>
         </div>
