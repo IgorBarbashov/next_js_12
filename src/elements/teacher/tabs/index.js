@@ -3,6 +3,33 @@ import Link from 'next/link';
 export function TeacherTabs({
     slug,
 }) {
+    const tabs = [
+        {
+            id: 'nav-about-tab', title: 'About', href: '/teacher/about', tabSlug: 'about',
+        },
+        {
+            id: 'nav-courses-tab', title: 'My courses', href: '/teacher/courses', tabSlug: 'courses',
+        },
+
+    ];
+
+    const tabsJsx = tabs.map(({
+        id, title, href, tabSlug,
+    }) => (
+        <Link key = { `teacher-tab-${tabSlug}` } href = { href }>
+            <a
+                className = { `nav-item nav-link${slug === tabSlug ? ' active' : ''}` }
+                id = { id }
+                data-toggle = 'tab'
+                role = 'tab'
+                aria-selected = { slug === tabSlug }
+            >
+                { title }
+            </a
+            >
+        </Link>
+    ));
+
     return (
         <div className = '_215b15'>
             <div className = 'container-fluid'>
@@ -15,30 +42,7 @@ export function TeacherTabs({
                                     id = 'nav-tab'
                                     role = 'tablist'
                                 >
-                                    <Link href = '/teacher/about'>
-                                        <a
-                                            className = { `nav-item nav-link${slug === 'about' ? ' active' : ''}` }
-                                            id = 'nav-about-tab'
-                                            data-toggle = 'tab'
-                                            role = 'tab'
-                                            aria-selected = 'true'
-                                        >
-                                            About
-                                        </a
-                                        >
-                                    </Link>
-                                    <Link href = '/teacher/courses'>
-                                        <a
-                                            className = { `nav-item nav-link${slug === 'courses' ? ' active' : ''}` }
-                                            id = 'nav-courses-tab'
-                                            data-toggle = 'tab'
-                                            role = 'tab'
-                                            aria-selected = 'false'
-                                        >
-                                            My courses
-                                        </a
-                                        >
-                                    </Link>
+                                    { tabsJsx }
                                 </div>
                             </nav>
                         </div>

@@ -12,8 +12,8 @@ export function TeacherComponent({
     return (
         <>
             <TeacherHeader { ...{ avatarSrc, name, professional } } />
-            <TeacherTabContent { ...{ courses, slug } } />
             <TeacherTabs slug = { slug } />
+            <TeacherTabContent { ...{ courses, slug } } />
         </>
     );
 }
