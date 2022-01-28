@@ -15,7 +15,7 @@ export function CourseComponent() {
                                                 data-toggle = 'modal'
                                                 data-target = '#videoModal'
                                             >
-                                                <img src = 'images/courses/img-2.jpg' alt = '' />
+                                                <img src = '/images/courses/img-2.jpg' alt = '' />
                                                 <div className = 'course-overlay'>
                                                     <div className = 'badge_seller'>Bestseller</div>
                                                 </div>
@@ -61,7 +61,7 @@ export function CourseComponent() {
                                 <div className = 'user_dt_left'>
                                     <div className = 'live_user_dt'>
                                         <div className = 'user_img5'>
-                                            <img src = 'images/hd_dp.jpg' alt = '' />
+                                            <img src = '/images/hd_dp.jpg' alt = '' />
                                         </div>
                                         <div className = 'user_cntnt'>
                                             <p className = '_df7852'>Johnson Smith</p>
@@ -73,7 +73,7 @@ export function CourseComponent() {
                                         <li>
                                             <p className = 'lkcm152'>
                                                 <img
-                                                    src = './images/like.svg'
+                                                    src = '/images/like.svg'
                                                     className = 'like-icon'
                                                     alt = ''
                                                 />
@@ -83,7 +83,7 @@ export function CourseComponent() {
                                         <li>
                                             <p className = 'lkcm152'>
                                                 <img
-                                                    src = './images/dislike.svg'
+                                                    src = '/images/dislike.svg'
                                                     className = 'like-icon'
                                                     alt = ''
                                                 />

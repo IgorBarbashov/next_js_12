@@ -1,17 +1,21 @@
+import Link from 'next/link';
+
 export function CourseCardElement() {
     return (
         <div className = 'fcrse_1 mb-20'>
-            <a href = 'course_detail_view.html' className = 'fcrse_img'>
-                <img src = '/images/courses/img-1.jpg' alt = '' />
-                <div className = 'course-overlay'>
-                    <div className = 'badge_seller'>Bestseller</div>
-                    <div className = 'crse_reviews'>
-                        <i className = 'uil uil-star' />
-                        4.5
+            <Link href = '/courses/1'>
+                <a className = 'fcrse_img'>
+                    <img src = '/images/courses/img-1.jpg' alt = '' />
+                    <div className = 'course-overlay'>
+                        <div className = 'badge_seller'>Bestseller</div>
+                        <div className = 'crse_reviews'>
+                            <i className = 'uil uil-star' />
+                            4.5
+                        </div>
+                        <div className = 'crse_timer'>25 hours</div>
                     </div>
-                    <div className = 'crse_timer'>25 hours</div>
-                </div>
-            </a>
+                </a>
+            </Link>
             <div className = 'fcrse_content'>
                 <div className = 'vdtodt'>
                     <span className = 'vdt14'>109k views</span>
