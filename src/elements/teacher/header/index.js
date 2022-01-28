@@ -1,8 +1,8 @@
-export function TeacherHeader({
-    avatarSrc,
-    name,
-    professional,
-}) {
+import { useStore } from '../../../lib/context/contextProvider';
+
+export function TeacherHeader() {
+    const { avatarSrc, name, professional } = useStore();
+
     return (
         <div className = '_216b01'>
             <div className = 'container-fluid'>

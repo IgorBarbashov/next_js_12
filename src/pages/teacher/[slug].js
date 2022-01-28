@@ -3,22 +3,11 @@ import { HeaderComponent } from '../../component/header';
 import { TeacherComponent } from '../../component/teacher';
 import { FooterComponent } from '../../component/footer';
 
-export default function TeacherPage({
-    avatarSrc,
-    name,
-    professional,
-    courses,
-    slug,
-}) {
+export default function TeacherPage() {
     return (
         <AppView
             header = { <HeaderComponent /> }
-            content = { (
-                <TeacherComponent { ...{
-                    avatarSrc, name, professional, courses, slug,
-                } }
-                />
-            ) }
+            content = { <TeacherComponent /> }
             footer = { <FooterComponent /> }
         />
     );
@@ -28,7 +17,7 @@ export const getServerSideProps = ({ query: { slug } }) => {
     const avatarSrc = '/images/hd_dp.jpg';
     const name = 'Joginder Singh';
     const professional = 'UI / UX Designer and Web Developer';
-    const courses = [{}, {}, {}, {}];
+    const courses = [{}, {}, {}, {}]; // TODO
 
     return {
         props: {

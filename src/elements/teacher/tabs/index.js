@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { useStore } from '../../../lib/context/contextProvider';
 
-export function TeacherTabs({
-    slug,
-}) {
+export function TeacherTabs() {
+    const { slug } = useStore();
+
     const tabs = [
         {
             id: 'nav-about-tab', title: 'About', href: '/teacher/about', tabSlug: 'about',
@@ -10,7 +11,6 @@ export function TeacherTabs({
         {
             id: 'nav-courses-tab', title: 'My courses', href: '/teacher/courses', tabSlug: 'courses',
         },
-
     ];
 
     const tabsJsx = tabs.map(({
