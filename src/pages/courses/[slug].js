@@ -12,7 +12,15 @@ const CoursePage = () => (
     />
 );
 
-export const getServerSideProps = async ({ query: { slug } }) => {
+export const getStaticPaths = async () => {
+    const courseService = new CourseService();
+    const { data } = await courseService.get(1, 100);
+    const courses = data?.data || [];
+    const paths = courses.map(({ hash }) => ({ params: { slug: hash } }));
+    return { paths, fallback: false };
+};
+
+export const getStaticProps = async ({ params: { slug } }) => {
     const courseService = new CourseService();
     let course = null;
 

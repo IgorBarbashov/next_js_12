@@ -12,7 +12,7 @@ const TeacherPage = () => (
     />
 );
 
-export const getServerSideProps = async ({ query: { slug } }) => {
+export const getServerSideProps = async ({ params: { slug } }) => {
     const avatarSrc = '/images/hd_dp.jpg';
     const name = 'Joginder Singh';
     const professional = 'UI / UX Designer and Web Developer';
