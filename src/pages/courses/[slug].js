@@ -4,15 +4,13 @@ import { CourseComponent } from '../../component/course';
 import { FooterComponent } from '../../component/footer';
 import { CourseService } from '../../services';
 
-export default function CoursePage() {
-    return (
-        <AppView
-            header = { <HeaderComponent /> }
-            content = { <CourseComponent /> }
-            footer = { <FooterComponent /> }
-        />
-    );
-}
+const CoursePage = () => (
+    <AppView
+        header = { <HeaderComponent /> }
+        content = { <CourseComponent /> }
+        footer = { <FooterComponent /> }
+    />
+);
 
 export const getServerSideProps = async ({ query: { slug } }) => {
     const courseService = new CourseService();
@@ -22,7 +20,7 @@ export const getServerSideProps = async ({ query: { slug } }) => {
         const { data } = await courseService.getById(slug);
         course = data?.data ?? null;
     } catch (e) {
-        console.error('API error');
+        process.stderr.write('API error');
     }
 
     return {
@@ -33,3 +31,5 @@ export const getServerSideProps = async ({ query: { slug } }) => {
         },
     };
 };
+
+export default CoursePage;

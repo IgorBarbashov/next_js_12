@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { daysToNow, formatThousandsAndMillions } from '../../utils';
 
-export function CourseCardElement({
+export const CourseCardElement = ({
     course,
-}) {
+}) => {
     const {
         hash, poster, badge, rating, views, duration, technologies, description, price, created,
     } = course;
@@ -54,4 +54,4 @@ export function CourseCardElement({
             </div>
         </div>
     );
-}
+};

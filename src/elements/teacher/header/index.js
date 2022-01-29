@@ -1,6 +1,6 @@
 import { useStore } from '../../../lib/context/contextProvider';
 
-export function TeacherHeader() {
+export const TeacherHeader = () => {
     const { avatarSrc, name, professional } = useStore();
 
     return (
@@ -28,4 +28,4 @@ export function TeacherHeader() {
             </div>
         </div>
     );
-}
+};

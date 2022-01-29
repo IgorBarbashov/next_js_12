@@ -1,15 +1,13 @@
-export function AppView({
+export const AppView = ({
     header,
     content,
     footer,
-}) {
-    return (
-        <>
-            { header }
-            <div className = 'wrapper'>
-                { content }
-                { footer }
-            </div>
-        </>
-    );
-}
+}) => (
+    <>
+        { header }
+        <div className = 'wrapper'>
+            { content }
+            { footer }
+        </div>
+    </>
+);

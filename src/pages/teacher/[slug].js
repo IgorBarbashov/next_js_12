@@ -4,15 +4,13 @@ import { TeacherComponent } from '../../component/teacher';
 import { FooterComponent } from '../../component/footer';
 import { CourseService } from '../../services';
 
-export default function TeacherPage() {
-    return (
-        <AppView
-            header = { <HeaderComponent /> }
-            content = { <TeacherComponent /> }
-            footer = { <FooterComponent /> }
-        />
-    );
-}
+const TeacherPage = () => (
+    <AppView
+        header = { <HeaderComponent /> }
+        content = { <TeacherComponent /> }
+        footer = { <FooterComponent /> }
+    />
+);
 
 export const getServerSideProps = async ({ query: { slug } }) => {
     const avatarSrc = '/images/hd_dp.jpg';
@@ -25,7 +23,7 @@ export const getServerSideProps = async ({ query: { slug } }) => {
         const { data } = await courseService.get();
         courses = data?.data || null;
     } catch (e) {
-        console.error('API error');
+        process.stderr.write('API error');
     }
 
     return {
@@ -40,3 +38,5 @@ export const getServerSideProps = async ({ query: { slug } }) => {
         },
     };
 };
+
+export default TeacherPage;

@@ -1,8 +1,13 @@
 import Link from 'next/link';
 import { useStore } from '../../lib/context/contextProvider';
+import { ApiErrorElement } from '../../elements/error/apiError';
 
-export function CourseComponent() {
+export const CourseComponent = () => {
     const { course } = useStore();
+
+    if (course === null) {
+        return <ApiErrorElement />;
+    }
 
     const {
         badge, rating, poster, views, description, technologies, info,
@@ -185,4 +190,4 @@ export function CourseComponent() {
             </div>
         </div>
     );
-}
+};

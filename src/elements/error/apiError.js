@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-export function ApiErrorElement() {
+export const ApiErrorElement = () => {
     const router = useRouter();
 
     return (
@@ -14,4 +14,4 @@ export function ApiErrorElement() {
 
         </div>
     );
-}
+};
