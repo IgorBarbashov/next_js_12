@@ -1,29 +1,26 @@
 import { AppView } from '../../views/app';
 import { HeaderComponent } from '../../component/header';
-import { TeacherComponent } from '../../component/teacher';
+import { CourseComponent } from '../../component/course';
 import { FooterComponent } from '../../component/footer';
 import { CourseService } from '../../services';
 
-export default function TeacherPage() {
+export default function CoursePage() {
     return (
         <AppView
             header = { <HeaderComponent /> }
-            content = { <TeacherComponent /> }
+            content = { <CourseComponent /> }
             footer = { <FooterComponent /> }
         />
     );
 }
 
 export const getServerSideProps = async ({ query: { slug } }) => {
-    const avatarSrc = '/images/hd_dp.jpg';
-    const name = 'Joginder Singh';
-    const professional = 'UI / UX Designer and Web Developer';
-    let courses = null;
-
     const courseService = new CourseService();
+    let course = null;
+
     try {
-        const { data } = await courseService.get();
-        courses = data?.data || null;
+        const { data } = await courseService.getById(slug);
+        course = data?.data ?? null;
     } catch (e) {
         console.error('API error');
     }
@@ -31,11 +28,7 @@ export const getServerSideProps = async ({ query: { slug } }) => {
     return {
         props: {
             defaultData: {
-                avatarSrc,
-                name,
-                professional,
-                courses,
-                slug,
+                course,
             },
         },
     };

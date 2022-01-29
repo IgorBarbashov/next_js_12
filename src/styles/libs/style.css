@@ -1353,6 +1353,11 @@ a.opts_account:hover + div.dropdown_account {
     line-height: 24px;
 }
 
+.crse14s.center {
+    text-align: center;
+}
+
+
 .crse-cate {
     display: block;
     font-size: 13px;
@@ -7131,6 +7136,7 @@ a.rmv-btn i {
 	color: #fff !important;
 	background: #00658a;
 	box-shadow: 1px 10px 6px rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 /* --- Terms of use Page --- */

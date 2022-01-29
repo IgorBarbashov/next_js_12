@@ -1,14 +1,20 @@
+import Link from 'next/link';
+
 export function LogoElement() {
     return (
         <div className = 'main_logo' id = 'logo'>
-            <a href = '#'><img src = '/images/logo.svg' alt = '' /></a>
-            <a href = '#'>
-                <img
-                    className = 'logo-inverse'
-                    src = '/images/ct_logo.svg'
-                    alt = ''
-                />
-            </a>
+            <Link href = '/'>
+                <a><img src = '/images/logo.svg' alt = '' /></a>
+            </Link>
+            <Link href = '/'>
+                <a>
+                    <img
+                        className = 'logo-inverse'
+                        src = '/images/ct_logo.svg'
+                        alt = ''
+                    />
+                </a>
+            </Link>
         </div>
     );
 }

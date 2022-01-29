@@ -1,14 +1,17 @@
 // Elements
-import { CourseElement } from '../../elements/course';
+import { CourseCardElement } from '../../elements/courseCard';
 
-export function CoursesComponent({
-    courses,
-}) {
-    const coursesJSX = courses.map((_, index) => {
-        const key = `id-${index}`;
+// Other
+import { useStore } from '../../lib/context/contextProvider';
+
+export function CoursesComponent() {
+    const { courses } = useStore();
+
+    const coursesJSX = courses.map((course) => {
+        const key = `id-${course.hash}`;
         return (
             <div className = 'item' key = { key }>
-                <CourseElement />
+                <CourseCardElement course = { course } />
             </div>
         );
     });
