@@ -1,3 +1,4 @@
+import { NextPage, GetServerSideProps } from 'next';
 import { AppView } from '~views/app';
 import { ContentView } from '~views/content';
 import { HeaderComponent } from '~components/header';
@@ -6,7 +7,7 @@ import { CoursesComponent } from '~components/courses';
 import { ProfileCardComponent } from '~components/profileCard';
 import { CourseService } from '~services';
 
-const Home = () => {
+const Home: NextPage = () => {
     const contentJSX = (
         <ContentView
             content = { <CoursesComponent /> }
@@ -23,7 +24,7 @@ const Home = () => {
     );
 };
 
-export const getServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async () => {
     const courseService = new CourseService();
     let courses = null;
 

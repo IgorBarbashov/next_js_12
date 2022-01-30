@@ -1,10 +1,11 @@
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { CourseComponent } from '~components/course';
 import { FooterComponent } from '~components/footer';
 import { CourseService } from '~services';
 
-const CoursePage = () => (
+const CoursePage: NextPage = () => (
     <AppView
         header = { <HeaderComponent /> }
         content = { <CourseComponent /> }
@@ -12,7 +13,7 @@ const CoursePage = () => (
     />
 );
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
     const courseService = new CourseService();
     const { data } = await courseService.get(1, 100);
     const courses = data?.data || [];
@@ -20,7 +21,7 @@ export const getStaticPaths = async () => {
     return { paths, fallback: 'blocking' };
 };
 
-export const getStaticProps = async ({ params: { slug } }) => {
+export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
     const courseService = new CourseService();
     let course = null;
 
