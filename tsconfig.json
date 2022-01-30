@@ -22,6 +22,7 @@
       "~pages/*": ["pages/*"],
       "~services": ["services"],
       "~styles/*": ["styles/*"],
+      "~types": ["types"],
       "~utils": ["utils"],
       "~views/*": ["views/*"],
     }
