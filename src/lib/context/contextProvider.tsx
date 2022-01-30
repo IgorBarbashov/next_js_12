@@ -1,8 +1,19 @@
-import { createContext, useContext } from 'react';
+import {
+    createContext, useContext, FC, ReactElement,
+} from 'react';
+import { TAnyObject } from '~types';
 
-const Context = createContext({});
+interface IContextProviderProps {
+    data: TAnyObject;
+    children: ReactElement;
+}
 
-export const ContextProvider = ({ data, children }) => (
+const Context = createContext<TAnyObject>({});
+
+export const ContextProvider: FC<IContextProviderProps> = ({
+    data,
+    children,
+}) => (
     <Context.Provider value = { data }>
         { children }
     </Context.Provider>
