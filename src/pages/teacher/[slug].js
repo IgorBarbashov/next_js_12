@@ -42,6 +42,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
                 slug,
             },
         },
+        revalidate: 15,
     };
 };
 
