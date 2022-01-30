@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { TEACHER } from '../../constants/pages';
+import { TEACHER_PAGE } from '~constants';
 
-const { VALID_SLUGS, DEFAULT_SLUG } = TEACHER;
+const { VALID_SLUGS, DEFAULT_SLUG } = TEACHER_PAGE;
 
 const middleware = (req) => {
     const { slug } = req.page?.params || {};

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { monthsToNow, formatThousandsAndMillions } from '../../utils';
+import { monthsToNow, formatThousandsAndMillions } from '~utils';
 
 export const CourseCardElement = ({
     course,

@@ -1,5 +1,4 @@
-// Elements
-import { ErrorElement } from '../elements/error';
+import { ErrorElement } from '~elements/error';
 
 const ServerErrorPage = () => (
     <ErrorElement

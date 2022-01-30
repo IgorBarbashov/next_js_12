@@ -1,4 +1,4 @@
-export const TeacherAbout = () => (
+export const TeacherAboutElement = () => (
     <div
         className = 'tab-pane fade show active'
         id = 'nav-about'

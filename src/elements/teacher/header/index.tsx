@@ -1,6 +1,6 @@
-import { useStore } from '../../../lib/context/contextProvider';
+import { useStore } from '~lib/context/contextProvider';
 
-export const TeacherHeader = () => {
+export const TeacherHeaderElement = () => {
     const { avatarSrc, name, professional } = useStore();
 
     return (

@@ -1,13 +1,13 @@
-import { TeacherAbout } from './about';
-import { TeacherCourses } from './courses';
-import { useStore } from '../../../lib/context/contextProvider';
+import { useStore } from '~lib/context/contextProvider';
+import { TeacherAboutElement } from './about';
+import { TeacherCoursesElement } from './courses';
 
-export const TeacherTabContent = () => {
+export const TeacherTabContentElement = () => {
     const { slug } = useStore();
 
     const tabs = {
-        about: <TeacherAbout />,
-        courses: <TeacherCourses />,
+        about: <TeacherAboutElement />,
+        courses: <TeacherCoursesElement />,
     };
 
     return (

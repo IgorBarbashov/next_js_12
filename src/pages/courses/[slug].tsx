@@ -1,8 +1,8 @@
-import { AppView } from '../../views/app';
-import { HeaderComponent } from '../../component/header';
-import { CourseComponent } from '../../component/course';
-import { FooterComponent } from '../../component/footer';
-import { CourseService } from '../../services';
+import { AppView } from '~views/app';
+import { HeaderComponent } from '~components/header';
+import { CourseComponent } from '~components/course';
+import { FooterComponent } from '~components/footer';
+import { CourseService } from '~services';
 
 const CoursePage = () => (
     <AppView

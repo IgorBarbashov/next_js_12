@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'qs';
-import { BASE_URL, API_PATHS } from '../constants/api';
+import { BASE_URL, API_PATHS } from '~constants';
 
 const { COURSES: { ENTITY } } = API_PATHS;
 

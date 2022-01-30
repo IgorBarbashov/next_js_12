@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useStore } from '../../../lib/context/contextProvider';
-import { formatDate } from '../../../utils';
+import { useStore } from '~lib/context/contextProvider';
+import { formatDate } from '~utils';
 
 export const CourseHeaderElement = () => {
     const {

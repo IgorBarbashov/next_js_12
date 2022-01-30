@@ -1,9 +1,6 @@
-// Elements
-import { CourseCardElement } from '../../elements/courseCard';
-
-// Other
-import { useStore } from '../../lib/context/contextProvider';
-import { ApiErrorElement } from '../../elements/error/apiError';
+import { CourseCardElement } from '~elements/courseCard';
+import { ApiErrorElement } from '~elements/error/apiError';
+import { useStore } from '~lib/context/contextProvider';
 
 export const CoursesComponent = () => {
     const { courses } = useStore();

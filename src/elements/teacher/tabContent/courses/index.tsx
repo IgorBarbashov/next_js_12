@@ -1,10 +1,7 @@
-// Components
-import { CoursesComponent } from '../../../../component/courses';
+import { CoursesComponent } from '~components/courses';
+import { useStore } from '~lib/context/contextProvider';
 
-// Other
-import { useStore } from '../../../../lib/context/contextProvider';
-
-export const TeacherCourses = () => {
+export const TeacherCoursesElement = () => {
     const { courses } = useStore();
     const coursesCount = courses?.length;
 

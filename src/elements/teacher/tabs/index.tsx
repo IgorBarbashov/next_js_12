@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { useStore } from '../../../lib/context/contextProvider';
+import { useStore } from '~lib/context/contextProvider';
 
-export const TeacherTabs = () => {
+export const TeacherTabsElement = () => {
     const { slug } = useStore();
 
     const tabs = [

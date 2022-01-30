@@ -1,4 +1,4 @@
-import { useStore } from '../../../lib/context/contextProvider';
+import { useStore } from '~lib/context/contextProvider';
 
 export const CourseInfoElement = () => {
     const {

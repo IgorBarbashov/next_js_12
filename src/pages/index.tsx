@@ -1,15 +1,10 @@
-// Views
-import { AppView } from '../views/app';
-import { ContentView } from '../views/content';
-
-// Component
-import { HeaderComponent } from '../component/header';
-import { FooterComponent } from '../component/footer';
-import { CoursesComponent } from '../component/courses';
-import { ProfileCardComponent } from '../component/profileCard';
-
-// Other
-import { CourseService } from '../services';
+import { AppView } from '~views/app';
+import { ContentView } from '~views/content';
+import { HeaderComponent } from '~components/header';
+import { FooterComponent } from '~components/footer';
+import { CoursesComponent } from '~components/courses';
+import { ProfileCardComponent } from '~components/profileCard';
+import { CourseService } from '~services';
 
 const Home = () => {
     const contentJSX = (

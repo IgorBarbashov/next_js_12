@@ -1,9 +1,9 @@
-import { AppView } from '../../views/app';
-import { HeaderComponent } from '../../component/header';
-import { TeacherComponent } from '../../component/teacher';
-import { FooterComponent } from '../../component/footer';
-import { CourseService } from '../../services';
-import { TEACHER } from '../../constants/pages';
+import { AppView } from '~views/app';
+import { HeaderComponent } from '~components/header';
+import { TeacherComponent } from '~components/teacher';
+import { FooterComponent } from '~components/footer';
+import { CourseService } from '~services';
+import { TEACHER_PAGE } from '~constants';
 
 const TeacherPage = () => (
     <AppView
@@ -14,7 +14,7 @@ const TeacherPage = () => (
 );
 
 export const getStaticPaths = async () => {
-    const paths = TEACHER.VALID_SLUGS.map((slug) => ({ params: { slug } }));
+    const paths = TEACHER_PAGE.VALID_SLUGS.map((slug) => ({ params: { slug } }));
     return { paths, fallback: false };
 };
 

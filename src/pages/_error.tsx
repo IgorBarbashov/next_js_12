@@ -1,11 +1,10 @@
-// Elements
-import { ErrorElement } from '../elements/error';
+import { ErrorElement } from '~elements/error';
 
-const NotFoundPage = () => (
+const ErrorPage = () => (
     <ErrorElement
         statusCode = { 404 }
         title = 'The page you were looking for could not be found.'
     />
 );
 
-export default NotFoundPage;
+export default ErrorPage;

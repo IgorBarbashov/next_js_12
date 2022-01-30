@@ -1,6 +1,5 @@
-// Elements
-import { LogoElement } from '../../elements/logo';
-import { MenuElement } from '../../elements/menu';
+import { LogoElement } from '~elements/logo';
+import { MenuElement } from '~elements/menu';
 
 export const HeaderComponent = () => (
     <header className = 'header clearfix'>
