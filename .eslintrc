@@ -94,7 +94,6 @@
       {
         "namedComponents": "arrow-function"
       }
-    ],
-    "consistent-return": "off"
+    ]
   }
 }

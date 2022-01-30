@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { daysToNow, formatThousandsAndMillions } from '../../utils';
+import { monthsToNow, formatThousandsAndMillions } from '../../utils';
 
 export const CourseCardElement = ({
     course,
@@ -30,7 +30,7 @@ export const CourseCardElement = ({
                     <span className = 'vdt14'>
                         { `${formatThousandsAndMillions(views)} views` }
                     </span>
-                    <span className = 'vdt14'>{ `${daysToNow(created)} days ago` }</span>
+                    <span className = 'vdt14'>{ `${monthsToNow(created)} ago` }</span>
                 </div>
                 <Link href = { `/courses/${hash}` }>
                     <a className = 'crse14s'>

@@ -16,7 +16,7 @@ export const getStaticPaths = async () => {
     const courseService = new CourseService();
     const { data } = await courseService.get(1, 100);
     const courses = data?.data || [];
-    const paths = courses.filter((el) => el.hash !== '1').map(({ hash }) => ({ params: { slug: hash } }));
+    const paths = courses.map(({ hash }) => ({ params: { slug: hash } }));
     return { paths, fallback: 'blocking' };
 };
 
