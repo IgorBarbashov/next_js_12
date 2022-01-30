@@ -1,16 +1,16 @@
 import { NextResponse } from 'next/server';
+import { TEACHER } from '../../constants/pages';
 
-const teacherValidSlugs = ['about', 'courses'];
-const teacherDefaultSlug = 'about';
+const { VALID_SLUGS, DEFAULT_SLUG } = TEACHER;
 
-/* eslint-disable-next-line consistent-return */
-const middleware = async (req) => {
-    const { slug } = req.page.params;
-    const isValidSlug = teacherValidSlugs.includes(slug);
+const middleware = (req) => {
+    const { slug } = req.page?.params || {};
+    const isValidSlug = VALID_SLUGS.includes(slug);
 
     if (!isValidSlug) {
-        return NextResponse.redirect(`/teacher/${teacherDefaultSlug}`);
+        return NextResponse.redirect(`/teacher/${DEFAULT_SLUG}`);
     }
+    return NextResponse.next();
 };
 
 export default middleware;

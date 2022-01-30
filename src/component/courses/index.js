@@ -3,9 +3,14 @@ import { CourseCardElement } from '../../elements/courseCard';
 
 // Other
 import { useStore } from '../../lib/context/contextProvider';
+import { ApiErrorElement } from '../../elements/error/apiError';
 
-export function CoursesComponent() {
+export const CoursesComponent = () => {
     const { courses } = useStore();
+
+    if (courses === null) {
+        return <ApiErrorElement />;
+    }
 
     const coursesJSX = courses.map((course) => {
         const key = `id-${course.hash}`;
@@ -21,4 +26,4 @@ export function CoursesComponent() {
             { coursesJSX }
         </div>
     );
-}
+};

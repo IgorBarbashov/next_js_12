@@ -10,19 +10,11 @@ import { ProfileCardComponent } from '../component/profileCard';
 
 // Other
 import { CourseService } from '../services';
-import { ApiErrorElement } from '../elements/error/apiError';
-import { useStore } from '../lib/context/contextProvider';
 
-export default function Home() {
-    const courses = useStore();
-
-    const ContentViewContent = courses === null
-        ? <ApiErrorElement />
-        : <CoursesComponent />;
-
+const Home = () => {
     const contentJSX = (
         <ContentView
-            content = { ContentViewContent }
+            content = { <CoursesComponent /> }
             sider = { <ProfileCardComponent /> }
         />
     );
@@ -34,7 +26,7 @@ export default function Home() {
             footer = { <FooterComponent /> }
         />
     );
-}
+};
 
 export const getServerSideProps = async () => {
     const courseService = new CourseService();
@@ -44,7 +36,7 @@ export const getServerSideProps = async () => {
         const { data } = await courseService.get();
         courses = data?.data || null;
     } catch (e) {
-        console.error('API error');
+        process.stderr.write('API error');
     }
 
     return {
@@ -55,3 +47,5 @@ export const getServerSideProps = async () => {
         },
     };
 };
+
+export default Home;

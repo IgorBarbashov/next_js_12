@@ -3,18 +3,22 @@ import { HeaderComponent } from '../../component/header';
 import { TeacherComponent } from '../../component/teacher';
 import { FooterComponent } from '../../component/footer';
 import { CourseService } from '../../services';
+import { TEACHER } from '../../constants/pages';
 
-export default function TeacherPage() {
-    return (
-        <AppView
-            header = { <HeaderComponent /> }
-            content = { <TeacherComponent /> }
-            footer = { <FooterComponent /> }
-        />
-    );
-}
+const TeacherPage = () => (
+    <AppView
+        header = { <HeaderComponent /> }
+        content = { <TeacherComponent /> }
+        footer = { <FooterComponent /> }
+    />
+);
 
-export const getServerSideProps = async ({ query: { slug } }) => {
+export const getStaticPaths = async () => {
+    const paths = TEACHER.VALID_SLUGS.map((slug) => ({ params: { slug } }));
+    return { paths, fallback: false };
+};
+
+export const getStaticProps = async ({ params: { slug } }) => {
     const avatarSrc = '/images/hd_dp.jpg';
     const name = 'Joginder Singh';
     const professional = 'UI / UX Designer and Web Developer';
@@ -25,7 +29,7 @@ export const getServerSideProps = async ({ query: { slug } }) => {
         const { data } = await courseService.get();
         courses = data?.data || null;
     } catch (e) {
-        console.error('API error');
+        process.stderr.write('API error');
     }
 
     return {
@@ -38,5 +42,8 @@ export const getServerSideProps = async ({ query: { slug } }) => {
                 slug,
             },
         },
+        revalidate: 15,
     };
 };
+
+export default TeacherPage;

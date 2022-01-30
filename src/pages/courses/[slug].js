@@ -4,17 +4,23 @@ import { CourseComponent } from '../../component/course';
 import { FooterComponent } from '../../component/footer';
 import { CourseService } from '../../services';
 
-export default function CoursePage() {
-    return (
-        <AppView
-            header = { <HeaderComponent /> }
-            content = { <CourseComponent /> }
-            footer = { <FooterComponent /> }
-        />
-    );
-}
+const CoursePage = () => (
+    <AppView
+        header = { <HeaderComponent /> }
+        content = { <CourseComponent /> }
+        footer = { <FooterComponent /> }
+    />
+);
 
-export const getServerSideProps = async ({ query: { slug } }) => {
+export const getStaticPaths = async () => {
+    const courseService = new CourseService();
+    const { data } = await courseService.get(1, 100);
+    const courses = data?.data || [];
+    const paths = courses.map(({ hash }) => ({ params: { slug: hash } }));
+    return { paths, fallback: 'blocking' };
+};
+
+export const getStaticProps = async ({ params: { slug } }) => {
     const courseService = new CourseService();
     let course = null;
 
@@ -22,7 +28,12 @@ export const getServerSideProps = async ({ query: { slug } }) => {
         const { data } = await courseService.getById(slug);
         course = data?.data ?? null;
     } catch (e) {
-        console.error('API error');
+        if (e.response.status === 404) {
+            return {
+                notFound: true,
+            };
+        }
+        process.stderr.write('API error');
     }
 
     return {
@@ -31,5 +42,8 @@ export const getServerSideProps = async ({ query: { slug } }) => {
                 course,
             },
         },
+        revalidate: 15,
     };
 };
+
+export default CoursePage;

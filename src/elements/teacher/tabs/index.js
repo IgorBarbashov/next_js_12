@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useStore } from '../../../lib/context/contextProvider';
 
-export function TeacherTabs() {
+export const TeacherTabs = () => {
     const { slug } = useStore();
 
     const tabs = [
@@ -51,4 +51,4 @@ export function TeacherTabs() {
             </div>
         </div>
     );
-}
+};

@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { daysToNow, formatThousandsAndMillions } from '../../utils';
+import { monthsToNow, formatThousandsAndMillions } from '../../utils';
 
-export function CourseCardElement({
+export const CourseCardElement = ({
     course,
-}) {
+}) => {
     const {
         hash, poster, badge, rating, views, duration, technologies, description, price, created,
     } = course;
@@ -30,7 +30,7 @@ export function CourseCardElement({
                     <span className = 'vdt14'>
                         { `${formatThousandsAndMillions(views)} views` }
                     </span>
-                    <span className = 'vdt14'>{ `${daysToNow(created)} days ago` }</span>
+                    <span className = 'vdt14'>{ `${monthsToNow(created)} ago` }</span>
                 </div>
                 <Link href = { `/courses/${hash}` }>
                     <a className = 'crse14s'>
@@ -54,4 +54,4 @@ export function CourseCardElement({
             </div>
         </div>
     );
-}
+};

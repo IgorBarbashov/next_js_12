@@ -2,7 +2,7 @@ import { TeacherAbout } from './about';
 import { TeacherCourses } from './courses';
 import { useStore } from '../../../lib/context/contextProvider';
 
-export function TeacherTabContent() {
+export const TeacherTabContent = () => {
     const { slug } = useStore();
 
     const tabs = {
@@ -25,4 +25,4 @@ export function TeacherTabContent() {
             </div>
         </div>
     );
-}
+};

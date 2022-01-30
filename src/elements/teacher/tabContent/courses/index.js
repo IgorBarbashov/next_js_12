@@ -4,9 +4,9 @@ import { CoursesComponent } from '../../../../component/courses';
 // Other
 import { useStore } from '../../../../lib/context/contextProvider';
 
-export function TeacherCourses() {
+export const TeacherCourses = () => {
     const { courses } = useStore();
-    const coursesCount = courses.length;
+    const coursesCount = courses?.length;
 
     return (
         <div
@@ -15,7 +15,7 @@ export function TeacherCourses() {
             role = 'tabpanel'
         >
             <div className = 'crse_content'>
-                <h3>{ `My courses (${coursesCount})` }</h3>
+                { coursesCount ? <h3>{ `My courses (${coursesCount})` }</h3> : null }
                 <div className = '_14d25'>
                     <div className = 'row'>
                         <div className = 'col-12'>
@@ -32,4 +32,4 @@ export function TeacherCourses() {
             </div>
         </div>
     );
-}
+};
