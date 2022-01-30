@@ -3,6 +3,7 @@ import { HeaderComponent } from '../../component/header';
 import { TeacherComponent } from '../../component/teacher';
 import { FooterComponent } from '../../component/footer';
 import { CourseService } from '../../services';
+import { TEACHER } from '../../constants/pages';
 
 const TeacherPage = () => (
     <AppView
@@ -12,7 +13,12 @@ const TeacherPage = () => (
     />
 );
 
-export const getServerSideProps = async ({ params: { slug } }) => {
+export const getStaticPaths = async () => {
+    const paths = TEACHER.VALID_SLUGS.map((slug) => ({ params: { slug } }));
+    return { paths, fallback: false };
+};
+
+export const getStaticProps = async ({ params: { slug } }) => {
     const avatarSrc = '/images/hd_dp.jpg';
     const name = 'Joginder Singh';
     const professional = 'UI / UX Designer and Web Developer';

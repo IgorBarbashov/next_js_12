@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
+import { TEACHER } from '../../constants/pages';
 
-const teacherValidSlugs = ['about', 'courses'];
-const teacherDefaultSlug = 'about';
+const { VALID_SLUGS, DEFAULT_SLUG } = TEACHER;
 
 const middleware = (req) => {
     const { slug } = req.page?.params || {};
-    const isValidSlug = teacherValidSlugs.includes(slug);
+    const isValidSlug = VALID_SLUGS.includes(slug);
 
     if (!isValidSlug) {
-        return NextResponse.redirect(`/teacher/${teacherDefaultSlug}`);
+        return NextResponse.redirect(`/teacher/${DEFAULT_SLUG}`);
     }
+    return NextResponse.next();
 };
 
 export default middleware;
