@@ -1,4 +1,11 @@
-export const ContentView = ({
+import { FC, ReactElement } from 'react';
+
+interface IContentViewProps {
+    content: ReactElement;
+    sider: ReactElement;
+}
+
+export const ContentView: FC<IContentViewProps> = ({
     content,
     sider,
 }) => (
