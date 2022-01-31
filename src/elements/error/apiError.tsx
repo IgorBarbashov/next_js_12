@@ -1,6 +1,7 @@
+import { FC, ReactElement } from 'react';
 import { useRouter } from 'next/router';
 
-export const ApiErrorElement = () => {
+export const ApiErrorElement: FC = (): ReactElement => {
     const router = useRouter();
 
     return (

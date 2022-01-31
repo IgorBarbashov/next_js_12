@@ -1,13 +1,14 @@
+import { FC, ReactElement } from 'react';
 import { useStore } from '~lib/context/contextProvider';
+import { ICourse, ICourseContextData } from '~types';
 
-export const CourseInfoElement = () => {
+export const CourseInfoElement: FC = (): ReactElement => {
+    const { course } = useStore() as ICourseContextData;
     const {
-        course: {
-            info: {
-                requirements, descriptions, benefits, descriptionSummary,
-            },
+        info: {
+            requirements, descriptions, benefits, descriptionSummary,
         },
-    } = useStore();
+    } = course as ICourse;
 
     const requirementsJsx = requirements.map((requirement, index) => (
         <li key = { `requirements-${index}` }>

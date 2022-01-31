@@ -1,4 +1,6 @@
-export const MenuElement = () => (
+import { FC, ReactElement } from 'react';
+
+export const MenuElement: FC = (): ReactElement => (
     <ul>
         <li>
             <a

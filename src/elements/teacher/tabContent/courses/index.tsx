@@ -1,8 +1,9 @@
 import { CoursesComponent } from '~components/courses';
 import { useStore } from '~lib/context/contextProvider';
+import { ITeacherContextData } from '~types';
 
 export const TeacherCoursesElement = () => {
-    const { courses } = useStore();
+    const { courses } = useStore() as ITeacherContextData;
     const coursesCount = courses?.length;
 
     return (

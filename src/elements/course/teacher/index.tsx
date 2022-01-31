@@ -1,8 +1,11 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { useStore } from '~lib/context/contextProvider';
+import { ICourse, ICourseContextData } from '~types';
 
-export const CourseTeacherElement = () => {
-    const { course: { createdBy } } = useStore();
+export const CourseTeacherElement: FC = (): ReactElement => {
+    const { course } = useStore() as ICourseContextData;
+    const { createdBy } = course as ICourse;
 
     return (
         <div className = '_215b15 _byt1458'>

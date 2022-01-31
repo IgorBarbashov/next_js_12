@@ -1,7 +1,9 @@
+import { FC, ReactElement } from 'react';
 import { useStore } from '~lib/context/contextProvider';
+import { ITeacherContextData } from '~types';
 
-export const TeacherHeaderElement = () => {
-    const { avatarSrc, name, professional } = useStore();
+export const TeacherHeaderElement: FC = (): ReactElement => {
+    const { teacher: { avatarSrc, name, professional } } = useStore() as ITeacherContextData;
 
     return (
         <div className = '_216b01'>

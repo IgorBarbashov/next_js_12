@@ -1,13 +1,14 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { useStore } from '~lib/context/contextProvider';
 import { formatDate } from '~utils';
+import { ICourse, ICourseContextData } from '~types';
 
-export const CourseHeaderElement = () => {
+export const CourseHeaderElement: FC = (): ReactElement => {
+    const { course } = useStore() as ICourseContextData;
     const {
-        course: {
-            badge, rating, poster, views, description, technologies, votes, created,
-        },
-    } = useStore();
+        badge, rating, poster, views, description, technologies, votes, created,
+    } = course as ICourse;
 
     return (
         <div className = '_215b01'>

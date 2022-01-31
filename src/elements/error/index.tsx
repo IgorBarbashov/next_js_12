@@ -1,9 +1,15 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 
-export const ErrorElement = ({
+interface IErrorElementProps {
+    statusCode: number;
+    title: string;
+}
+
+export const ErrorElement: FC<IErrorElementProps> = ({
     statusCode,
     title,
-}) => (
+}): ReactElement => (
     <div className = 'coming_soon_style'>
         <div className = 'wrapper coming_soon_style'>
             <div className = 'container'>

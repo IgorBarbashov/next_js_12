@@ -1,11 +1,17 @@
+import { ReactElement } from 'react';
 import { useStore } from '~lib/context/contextProvider';
+import { ITeacherContextData } from '~types';
 import { TeacherAboutElement } from './about';
 import { TeacherCoursesElement } from './courses';
 
-export const TeacherTabContentElement = () => {
-    const { slug } = useStore();
+interface ITabs {
+    [key: string]: ReactElement;
+}
 
-    const tabs = {
+export const TeacherTabContentElement = () => {
+    const { slug } = useStore() as ITeacherContextData;
+
+    const tabs: ITabs = {
         about: <TeacherAboutElement />,
         courses: <TeacherCoursesElement />,
     };

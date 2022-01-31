@@ -1,9 +1,15 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { monthsToNow, formatThousandsAndMillions } from '~utils';
+import { ICourse } from '~types';
 
-export const CourseCardElement = ({
+interface ICourseCardElementProps {
+    course: ICourse;
+}
+
+export const CourseCardElement: FC<ICourseCardElementProps> = ({
     course,
-}) => {
+}): ReactElement => {
     const {
         hash, poster, badge, rating, views, duration, technologies, description, price, created,
     } = course;

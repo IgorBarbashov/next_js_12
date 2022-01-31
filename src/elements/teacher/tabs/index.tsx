@@ -1,8 +1,10 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { useStore } from '~lib/context/contextProvider';
+import { ITeacherContextData } from '~types';
 
-export const TeacherTabsElement = () => {
-    const { slug } = useStore();
+export const TeacherTabsElement: FC = (): ReactElement => {
+    const { slug } = useStore() as ITeacherContextData;
 
     const tabs = [
         {

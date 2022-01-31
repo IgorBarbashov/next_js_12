@@ -1,6 +1,7 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 
-export const LogoElement = () => (
+export const LogoElement: FC = (): ReactElement => (
     <div className = 'main_logo' id = 'logo'>
         <Link href = '/'>
             <a><img src = '/images/logo.svg' alt = '' /></a>
