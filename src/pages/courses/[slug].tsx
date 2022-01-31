@@ -1,7 +1,6 @@
 import { ReactElement } from 'react';
 import {
-    NextPage, GetStaticProps, GetStaticPaths, GetStaticPropsResult,
-    GetStaticPathsResult,
+    NextPage, GetServerSideProps, GetServerSidePropsResult,
 } from 'next';
 import axios, { AxiosError } from 'axios';
 import { AppView } from '~views/app';
@@ -19,22 +18,14 @@ const CoursePage: NextPage = (): ReactElement => (
     />
 );
 
-export const getStaticPaths: GetStaticPaths<ICoursesDynamicPathSegment> = async (): Promise<GetStaticPathsResult<ICoursesDynamicPathSegment>> => {
-    const courseService = new CourseService();
-    const { data } = await courseService.get(1, 100);
-    const courses = data?.data || [];
-    const paths = courses.map(({ hash }) => ({ params: { slug: hash } }));
-    return { paths, fallback: 'blocking' };
-};
-
-export const getStaticProps: GetStaticProps<TCourseContext, ICoursesDynamicPathSegment> = async ({
+export const getServerSideProps: GetServerSideProps<TCourseContext, ICoursesDynamicPathSegment> = async ({
     params,
-}): Promise<GetStaticPropsResult<TCourseContext>> => {
+}): Promise<GetServerSidePropsResult<TCourseContext>> => {
     const courseService = new CourseService();
     let course = null;
 
     try {
-        const { data } = await courseService.getById(params?.slug ?? '');
+        const { data } = await courseService.increaseViewsCount(params?.slug ?? '');
         course = data?.data ?? null;
     } catch (e) {
         if (axios.isAxiosError(e)) {
@@ -54,7 +45,6 @@ export const getStaticProps: GetStaticProps<TCourseContext, ICoursesDynamicPathS
                 course,
             },
         },
-        revalidate: 15,
     };
 };
 

@@ -1,4 +1,5 @@
 import { ParsedUrlQuery } from 'querystring';
+import { TGetResponse, TGetByIdResponse } from './api';
 import { TContext } from './context';
 
 export interface ICourseInfo {
@@ -23,6 +24,10 @@ export interface ICourse {
     info: ICourseInfo;
     created: string;
 }
+
+export type TGetCoursesResponse = TGetResponse<ICourse>;
+export type TGetCourseResponse = TGetByIdResponse<ICourse>;
+export type TPutViewsResponse = TGetCourseResponse;
 
 export interface ICourseContextData {
     course: ICourse | null;
