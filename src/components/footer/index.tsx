@@ -1,6 +1,7 @@
+import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 
-export const FooterComponent = () => (
+export const FooterComponent: FC = (): ReactElement => (
     <footer className = 'footer mt-30'>
         <div className = 'container'>
             <div className = 'row'>

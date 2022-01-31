@@ -24,11 +24,11 @@ export interface ICourse {
     created: string;
 }
 
-interface ICourseContextData {
+export interface ICourseContextData {
     course: ICourse | null;
 }
 
-interface ICoursesContextData {
+export interface ICoursesContextData {
     courses: ICourse[] | null;
 }
 

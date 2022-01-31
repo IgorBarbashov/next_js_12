@@ -8,7 +8,7 @@ export interface ITeacher {
     professional: string;
 }
 
-interface ITeacherContextData {
+export interface ITeacherContextData {
     teacher: ITeacher;
     courses: ICourse[] | null;
     slug: string;

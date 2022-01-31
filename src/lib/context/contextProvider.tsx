@@ -1,14 +1,19 @@
 import {
     createContext, useContext, FC, ReactElement,
 } from 'react';
-import { TAnyObject } from '~types';
+import { ICourseContextData, ICoursesContextData, ITeacherContextData } from '~types';
+
+export type TUnionContext = {}
+    | ICourseContextData
+    | ICoursesContextData
+    | ITeacherContextData
 
 interface IContextProviderProps {
-    data: TAnyObject;
+    data: TUnionContext;
     children: ReactElement;
 }
 
-const Context = createContext<TAnyObject>({});
+const Context = createContext<TUnionContext>({});
 
 export const ContextProvider: FC<IContextProviderProps> = ({
     data,
@@ -19,4 +24,4 @@ export const ContextProvider: FC<IContextProviderProps> = ({
     </Context.Provider>
 );
 
-export const useStore = () => useContext(Context);
+export const useStore = () => useContext<TUnionContext>(Context);
