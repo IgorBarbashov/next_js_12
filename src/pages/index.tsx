@@ -1,4 +1,5 @@
-import { NextPage, GetServerSideProps } from 'next';
+import { ReactElement } from 'react';
+import { NextPage, GetServerSideProps, GetServerSidePropsResult } from 'next';
 import { AppView } from '~views/app';
 import { ContentView } from '~views/content';
 import { HeaderComponent } from '~components/header';
@@ -6,8 +7,9 @@ import { FooterComponent } from '~components/footer';
 import { CoursesComponent } from '~components/courses';
 import { ProfileCardComponent } from '~components/profileCard';
 import { CourseService } from '~services';
+import { TCoursesContext } from '~types';
 
-const Home: NextPage = () => {
+const Home: NextPage = (): ReactElement => {
     const contentJSX = (
         <ContentView
             content = { <CoursesComponent /> }
@@ -24,7 +26,7 @@ const Home: NextPage = () => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps<TCoursesContext> = async (): Promise<GetServerSidePropsResult<TCoursesContext>> => {
     const courseService = new CourseService();
     let courses = null;
 
@@ -37,7 +39,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
     return {
         props: {
-            defaultData: {
+            contextData: {
                 courses,
             },
         },

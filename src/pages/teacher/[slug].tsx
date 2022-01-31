@@ -1,12 +1,16 @@
-import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
+import { ReactElement } from 'react';
+import {
+    NextPage, GetStaticProps, GetStaticPaths, GetStaticPathsResult, GetStaticPropsResult,
+} from 'next';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
 import { CourseService } from '~services';
 import { TEACHER_PAGE } from '~constants';
+import { ITeacherContext, ITeacherDynamicPathSegment } from '~types';
 
-const TeacherPage: NextPage = () => (
+const TeacherPage: NextPage = (): ReactElement => (
     <AppView
         header = { <HeaderComponent /> }
         content = { <TeacherComponent /> }
@@ -14,17 +18,21 @@ const TeacherPage: NextPage = () => (
     />
 );
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths<ITeacherDynamicPathSegment> = async (): Promise<GetStaticPathsResult<ITeacherDynamicPathSegment>> => {
     const paths = TEACHER_PAGE.VALID_SLUGS.map((slug) => ({ params: { slug } }));
     return { paths, fallback: false };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
-    const avatarSrc = '/images/hd_dp.jpg';
-    const name = 'Joginder Singh';
-    const professional = 'UI / UX Designer and Web Developer';
-    let courses = null;
+export const getStaticProps: GetStaticProps<ITeacherContext, ITeacherDynamicPathSegment> = async ({
+    params,
+}): Promise<GetStaticPropsResult<ITeacherContext>> => {
+    const teacher = {
+        avatarSrc: '/images/hd_dp.jpg',
+        name: 'Joginder Singh',
+        professional: 'UI / UX Designer and Web Developer',
+    };
 
+    let courses = null;
     const courseService = new CourseService();
     try {
         const { data } = await courseService.get();
@@ -35,12 +43,10 @@ export const getStaticProps: GetStaticProps = async ({ params: { slug } }) => {
 
     return {
         props: {
-            defaultData: {
-                avatarSrc,
-                name,
-                professional,
+            contextData: {
+                teacher,
                 courses,
-                slug,
+                slug: params?.slug ?? '',
             },
         },
         revalidate: 15,
