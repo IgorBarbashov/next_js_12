@@ -104,6 +104,12 @@
         "ts": "never",
         "tsx": "never"
       }
+    ],
+    "react/require-default-props": [
+      2,
+      {
+        "ignoreFunctionalComponents": true
+      }
     ]
   }
 }
