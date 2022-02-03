@@ -1,15 +1,15 @@
 import { FC, ReactElement } from 'react';
 
 interface IAppViewProps {
-    header: ReactElement;
+    header?: ReactElement;
     content: ReactElement;
-    footer: ReactElement;
+    footer?: ReactElement;
 }
 
 export const AppView: FC<IAppViewProps> = ({
-    header,
+    header = null,
     content,
-    footer,
+    footer = null,
 }) => (
     <>
         { header }
