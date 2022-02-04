@@ -48,6 +48,9 @@
       ],
       "~views/*": [
         "views/*"
+      ],
+      "~validation/*": [
+        "validation/*"
       ]
     },
     "incremental": true
