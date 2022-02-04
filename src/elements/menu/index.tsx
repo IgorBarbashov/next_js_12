@@ -1,4 +1,5 @@
 import { FC, ReactElement } from 'react';
+import Image from 'next/image';
 
 export const MenuElement: FC = (): ReactElement => (
     <ul>
@@ -15,7 +16,13 @@ export const MenuElement: FC = (): ReactElement => (
         <li className = 'ui dropdown'>
             <a href = '#' className = 'opts_account _df7852' title = 'Account'>
                 John Dou
-                <img src = '/images/hd_dp.jpg' alt = '' />
+                <Image
+                    src = '/images/hd_dp.jpg'
+                    alt = ''
+                    layout = 'fixed'
+                    width = { 36 }
+                    height = { 36 }
+                />
             </a>
         </li>
         <li className = 'ui dropdown'>

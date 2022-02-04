@@ -1,5 +1,6 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useStore } from '~lib/context/contextProvider';
 import { formatDate } from '~utils';
 import { ICourse, ICourseContextData } from '~types';
@@ -21,11 +22,18 @@ export const CourseHeaderElement: FC = (): ReactElement => {
                                     <div className = 'preview_video'>
                                         <Link href = '#'>
                                             <a
+                                                href = '#'
                                                 className = 'fcrse_img'
                                                 data-toggle = 'modal'
                                                 data-target = '#videoModal'
                                             >
-                                                <img src = { poster } alt = '' />
+                                                <Image
+                                                    src = { poster }
+                                                    alt = ''
+                                                    layout = 'responsive'
+                                                    width = { 480 }
+                                                    height = { 270 }
+                                                />
                                                 <div className = 'course-overlay'>
                                                     { badge ? <div className = 'badge_seller'>Bestseller</div> : null }
                                                 </div>

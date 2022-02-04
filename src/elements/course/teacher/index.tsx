@@ -1,5 +1,6 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useStore } from '~lib/context/contextProvider';
 import { ICourse, ICourseContextData } from '~types';
 
@@ -17,7 +18,15 @@ export const CourseTeacherElement: FC = (): ReactElement => {
                                 <div className = 'live_user_dt'>
                                     <div className = 'user_img5'>
                                         <Link href = '/teacher/about'>
-                                            <a><img src = '/images/hd_dp.jpg' alt = '' /></a>
+                                            <a>
+                                                <Image
+                                                    src = '/images/hd_dp.jpg'
+                                                    alt = ''
+                                                    layout = 'fixed'
+                                                    width = { 50 }
+                                                    height = { 50 }
+                                                />
+                                            </a>
                                         </Link>
                                     </div>
                                     <div className = 'user_cntnt'>
@@ -33,13 +42,27 @@ export const CourseTeacherElement: FC = (): ReactElement => {
                                 <ul>
                                     <li>
                                         <p className = 'lkcm152'>
-                                            <img src = '/images/like.svg' className = 'like-icon' alt = '' />
+                                            <Image
+                                                src = '/images/like.svg'
+                                                className = 'like-icon'
+                                                alt = ''
+                                                layout = 'fixed'
+                                                width = { 24 }
+                                                height = { 24 }
+                                            />
                                             <span>100</span>
                                         </p>
                                     </li>
                                     <li>
                                         <p className = 'lkcm152'>
-                                            <img src = '/images/dislike.svg' className = 'like-icon' alt = '' />
+                                            <Image
+                                                src = '/images/dislike.svg'
+                                                className = 'like-icon'
+                                                alt = ''
+                                                layout = 'fixed'
+                                                width = { 24 }
+                                                height = { 24 }
+                                            />
                                             <span>20</span>
                                         </p>
                                     </li>

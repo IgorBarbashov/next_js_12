@@ -1,11 +1,19 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const ProfileCardComponent: FC = (): ReactElement => (
     <div className = 'fcrse_2 mb-30'>
         <div className = 'tutor_img'>
             <Link href = '/teacher/about'>
-                <a><img src = '/images/hd_dp.jpg' alt = '' /></a>
+                <a href = '#'>
+                    <Image
+                        src = '/images/hd_dp.jpg'
+                        alt = ''
+                        width = { 100 }
+                        height = { 100 }
+                    />
+                </a>
             </Link>
         </div>
         <div className = 'tutor_content_dt'>

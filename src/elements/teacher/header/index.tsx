@@ -1,6 +1,7 @@
 import { FC, ReactElement } from 'react';
 import { useStore } from '~lib/context/contextProvider';
 import { IUserContextData } from '~types';
+import Image from 'next/image';
 
 export const TeacherHeaderElement: FC = (): ReactElement => {
     const { user: { avatar, name } } = useStore() as IUserContextData;
@@ -15,7 +16,12 @@ export const TeacherHeaderElement: FC = (): ReactElement => {
                                 <div className = 'col-lg-7'>
                                     <div className = 'dp_dt150'>
                                         <div className = 'img148'>
-                                            <img src = { avatar } alt = '' />
+                                            <Image
+                                                src = { avatar }
+                                                alt = ''
+                                                width = { 106 }
+                                                height = { 106 }
+                                            />
                                         </div>
                                         <div className = 'prfledt1'>
                                             <h2>{ name }</h2>
