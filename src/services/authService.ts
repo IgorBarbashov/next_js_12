@@ -9,8 +9,8 @@ const {
 } = API_PATHS;
 
 export class AuthService {
-    register = (fullName: string, email: string, password: string): TJwtTokenResponse => (
-        axios.post(`${BASE_URL}${ENTITY}${REGISTER}`, { fullName, email, password })
+    register = (name: string, email: string, password: string): TJwtTokenResponse => (
+        axios.post(`${BASE_URL}${ENTITY}${REGISTER}`, { name, email, password })
     );
 
     login = (email: string, password: string): TJwtTokenResponse => (

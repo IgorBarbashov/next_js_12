@@ -18,7 +18,7 @@ export const LoginFormElement: FC = (): ReactElement => {
         resolver: yupResolver(loginFormSchema),
     });
 
-    const onSubmit = async ({ email, password }: ILoginForm) => {
+    const onSubmit = async ({ email, password }: ILoginForm): Promise<void> => {
         try {
             const { data } = await authService.login(email, password);
             const jwtToken = data?.data ?? null;

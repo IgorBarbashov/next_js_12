@@ -3,16 +3,34 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
+import { AuthService } from '~services';
 import { registerFormSchema } from '~validation/schema';
 import { IRegisterForm } from '~types';
+import { useRouter } from 'next/router';
+import { clientCookies } from '~utils';
+import { COOKIES } from '~constants';
+
+const authService = new AuthService();
 
 export const RegisterFormElement: FC = (): ReactElement => {
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<IRegisterForm>({
         resolver: yupResolver(registerFormSchema),
     });
 
-    const onSubmit = (data: IRegisterForm) => {
-        console.log('data:', data);
+    const onSubmit = async ({ fullName, email, password }: IRegisterForm): Promise<void> => {
+        try {
+            const { data } = await authService.register(fullName, email, password);
+            const jwtToken = data?.data ?? null;
+            if (jwtToken !== null) {
+                clientCookies.setCookie(COOKIES.JWT_TOKEN, jwtToken);
+                await router.push('/');
+            } else {
+                clientCookies.deleteCookie(COOKIES.JWT_TOKEN);
+            }
+        } catch (e) {
+            clientCookies.deleteCookie(COOKIES.JWT_TOKEN);
+        }
     };
 
     return (
