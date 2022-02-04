@@ -1,9 +1,9 @@
 import { FC, ReactElement } from 'react';
 import { useStore } from '~lib/context/contextProvider';
-import { ITeacherContextData } from '~types';
+import { IUserContextData } from '~types';
 
 export const TeacherHeaderElement: FC = (): ReactElement => {
-    const { teacher: { avatarSrc, name, professional } } = useStore() as ITeacherContextData;
+    const { user: { avatar, name } } = useStore() as IUserContextData;
 
     return (
         <div className = '_216b01'>
@@ -15,11 +15,11 @@ export const TeacherHeaderElement: FC = (): ReactElement => {
                                 <div className = 'col-lg-7'>
                                     <div className = 'dp_dt150'>
                                         <div className = 'img148'>
-                                            <img src = { avatarSrc } alt = '' />
+                                            <img src = { avatar } alt = '' />
                                         </div>
                                         <div className = 'prfledt1'>
                                             <h2>{ name }</h2>
-                                            <span>{ professional }</span>
+                                            <span>UI / UX Designer and Web Developer</span>
                                         </div>
                                     </div>
                                 </div>

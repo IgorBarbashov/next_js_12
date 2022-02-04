@@ -1,10 +1,10 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { useStore } from '~lib/context/contextProvider';
-import { ITeacherContextData } from '~types';
+import { ICommonContextData } from '~types';
 
 export const TeacherTabsElement: FC = (): ReactElement => {
-    const { slug } = useStore() as ITeacherContextData;
+    const { slug = '' } = useStore() as ICommonContextData;
 
     const tabs = [
         {

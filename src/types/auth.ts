@@ -1,3 +1,5 @@
+import { TResponse } from './api';
+
 export interface ILoginForm {
     email: string;
     password: string;
@@ -10,3 +12,5 @@ export interface IRegisterForm {
     password: string;
     repeatPassword: string;
 }
+
+export type TJwtTokenResponse = TResponse<string>;

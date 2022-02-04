@@ -8,7 +8,7 @@ import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
 import { CourseService } from '~services';
 import { TEACHER_PAGE } from '~constants';
-import { ITeacherContext, ITeacherDynamicPathSegment } from '~types';
+import { IUserContext, IUserDynamicPathSegment, TCoursesContext } from '~types';
 
 const TeacherPage: NextPage = (): ReactElement => (
     <AppView
@@ -18,39 +18,46 @@ const TeacherPage: NextPage = (): ReactElement => (
     />
 );
 
-export const getStaticPaths: GetStaticPaths<ITeacherDynamicPathSegment> = async (): Promise<GetStaticPathsResult<ITeacherDynamicPathSegment>> => {
-    const paths = TEACHER_PAGE.VALID_SLUGS.map((slug) => ({ params: { slug } }));
-    return { paths, fallback: false };
-};
-
-export const getStaticProps: GetStaticProps<ITeacherContext, ITeacherDynamicPathSegment> = async ({
-    params,
-}): Promise<GetStaticPropsResult<ITeacherContext>> => {
-    const teacher = {
-        avatarSrc: '/images/hd_dp.jpg',
-        name: 'Joginder Singh',
-        professional: 'UI / UX Designer and Web Developer',
+export const getStaticPaths: GetStaticPaths<IUserDynamicPathSegment> =
+    async (): Promise<GetStaticPathsResult<IUserDynamicPathSegment>> => {
+        const paths = TEACHER_PAGE.VALID_SLUGS.map((slug) => ({ params: { slug } }));
+        return { paths, fallback: false };
     };
 
-    let courses = null;
-    const courseService = new CourseService();
-    try {
-        const { data } = await courseService.get();
-        courses = data?.data || null;
-    } catch (e) {
-        process.stderr.write('API error');
-    }
+export const getStaticProps: GetStaticProps<IUserContext | TCoursesContext, IUserDynamicPathSegment> =
+    async ({ params }): Promise<GetStaticPropsResult<IUserContext | TCoursesContext>> => {
+        const user = {
+            avatar: '/images/hd_dp.jpg',
+            name: 'Joginder Singh',
+            hash: 'hash',
+            email: 'teacher@teacher.com',
+        };
 
-    return {
-        props: {
-            contextData: {
-                teacher,
-                courses,
-                slug: params?.slug ?? '',
+        let courses = null;
+        const courseService = new CourseService();
+        try {
+            const { data } = await courseService.get();
+            courses = data?.data || null;
+        } catch (e) {
+            process.stderr.write('API error');
+        }
+
+        if (user === null) {
+            return {
+                notFound: true,
+            };
+        }
+
+        return {
+            props: {
+                contextData: {
+                    user,
+                    courses,
+                    slug: params?.slug ?? '',
+                },
             },
-        },
-        revalidate: 15,
+            revalidate: 15,
+        };
     };
-};
 
 export default TeacherPage;

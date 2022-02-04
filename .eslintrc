@@ -110,6 +110,15 @@
       {
         "ignoreFunctionalComponents": true
       }
+    ],
+    "operator-linebreak": [
+      "error",
+      "after",
+      {
+        "overrides": {
+          "=": "after"
+        }
+      }
     ]
   }
 }

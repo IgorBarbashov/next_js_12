@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { useStore } from '~lib/context/contextProvider';
-import { ITeacherContextData } from '~types';
+import { ICommonContextData } from '~types';
 import { TeacherAboutElement } from './about';
 import { TeacherCoursesElement } from './courses';
 
@@ -9,7 +9,7 @@ interface ITabs {
 }
 
 export const TeacherTabContentElement = () => {
-    const { slug } = useStore() as ITeacherContextData;
+    const { slug = '' } = useStore() as ICommonContextData;
 
     const tabs: ITabs = {
         about: <TeacherAboutElement />,

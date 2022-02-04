@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from 'querystring';
-import { TGetResponse, TGetByIdResponse } from './api';
+import { TResponse } from './api';
 import { TContext } from './context';
 
 export interface ICourseInfo {
@@ -25,8 +25,8 @@ export interface ICourse {
     created: string;
 }
 
-export type TGetCoursesResponse = TGetResponse<ICourse>;
-export type TGetCourseResponse = TGetByIdResponse<ICourse>;
+export type TGetCoursesResponse = TResponse<ICourse[]>;
+export type TGetCourseResponse = TResponse<ICourse>;
 export type TPutViewsResponse = TGetCourseResponse;
 
 export interface ICourseContextData {
@@ -37,8 +37,8 @@ export interface ICoursesContextData {
     courses: ICourse[] | null;
 }
 
-export type TCourseContext = TContext<ICourseContextData>
-export type TCoursesContext = TContext<ICoursesContextData>
+export type TCourseContext = TContext<ICourseContextData>;
+export type TCoursesContext = TContext<ICoursesContextData>;
 
 export interface ICoursesDynamicPathSegment extends ParsedUrlQuery {
     slug: string;

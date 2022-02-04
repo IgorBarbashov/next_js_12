@@ -1,12 +1,12 @@
 import {
     createContext, useContext, FC, ReactElement,
 } from 'react';
-import { ICourseContextData, ICoursesContextData, ITeacherContextData } from '~types';
+import { ICourseContextData, ICoursesContextData, IUserContextData } from '~types';
 
 export type TUnionContext = {}
     | ICourseContextData
     | ICoursesContextData
-    | ITeacherContextData
+    | IUserContextData
 
 interface IContextProviderProps {
     data: TUnionContext;

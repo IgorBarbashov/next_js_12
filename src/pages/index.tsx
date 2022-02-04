@@ -26,24 +26,25 @@ const Home: NextPage = (): ReactElement => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<TCoursesContext> = async (): Promise<GetServerSidePropsResult<TCoursesContext>> => {
-    const courseService = new CourseService();
-    let courses = null;
+export const getServerSideProps: GetServerSideProps<TCoursesContext> =
+    async (): Promise<GetServerSidePropsResult<TCoursesContext>> => {
+        const courseService = new CourseService();
+        let courses = null;
 
-    try {
-        const { data } = await courseService.get();
-        courses = data?.data || null;
-    } catch (e) {
-        process.stderr.write('API error');
-    }
+        try {
+            const { data } = await courseService.get();
+            courses = data?.data || null;
+        } catch (e) {
+            process.stderr.write('API error');
+        }
 
-    return {
-        props: {
-            contextData: {
-                courses,
+        return {
+            props: {
+                contextData: {
+                    courses,
+                },
             },
-        },
+        };
     };
-};
 
 export default Home;
