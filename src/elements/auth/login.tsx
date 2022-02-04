@@ -1,18 +1,36 @@
 import React, { FC, ReactElement } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import classNames from 'classnames';
+import { AuthService } from '~services';
+import { clientCookies } from '~utils';
 import { loginFormSchema } from '~validation/schema';
 import { ILoginForm } from '~types';
+import { COOKIES } from '~constants';
+
+const authService = new AuthService();
 
 export const LoginFormElement: FC = (): ReactElement => {
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>({
         resolver: yupResolver(loginFormSchema),
     });
 
-    const onSubmit = (data: ILoginForm) => {
-        console.log('data:', data);
+    const onSubmit = async ({ email, password }: ILoginForm) => {
+        try {
+            const { data } = await authService.login(email, password);
+            const jwtToken = data?.data ?? null;
+            if (jwtToken !== null) {
+                clientCookies.setCookie(COOKIES.JWT_TOKEN, jwtToken);
+                await router.push('/');
+            } else {
+                clientCookies.deleteCookie(COOKIES.JWT_TOKEN);
+            }
+        } catch (e) {
+            clientCookies.deleteCookie(COOKIES.JWT_TOKEN);
+        }
     };
 
     return (

@@ -1,4 +1,4 @@
-import nookies from 'nookies';
+import nookies, { parseCookies, setCookie, destroyCookie } from 'nookies';
 import { GetServerSidePropsContext } from 'next';
 import { TStringOrNull } from '~types';
 
@@ -15,7 +15,7 @@ export const serverSideCookies = {
         name: string,
     ): TStringOrNull => {
         const cookies = nookies.get(ctx);
-        return cookies[name] || null;
+        return cookies[name] ?? null;
     },
 
     setCookie: (
@@ -38,4 +38,25 @@ export const serverSideCookies = {
         ctx: GetServerSidePropsContext,
         name: string,
     ): boolean => !(serverSideCookies.getCookie(ctx, name) === null),
+};
+
+export const clientCookies = {
+    getCookie: (name: string): TStringOrNull => {
+        const cookies = parseCookies();
+        return cookies[name] ?? null;
+    },
+
+    setCookie: (
+        name: string,
+        value: string,
+        options: TDefaultCookiesOptions = defaultCookiesOptions,
+    ): void => {
+        setCookie(null, name, value, options);
+    },
+
+    deleteCookie: (name: string): void => {
+        destroyCookie(null, name);
+    },
+
+    isCookieSet: (name: string): boolean => !(clientCookies.getCookie(name) === null),
 };
