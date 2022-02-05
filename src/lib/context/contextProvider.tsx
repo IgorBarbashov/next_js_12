@@ -1,9 +1,12 @@
 import {
     createContext, useContext, FC, ReactElement,
 } from 'react';
-import { ICourseContextData, ICoursesContextData, IUserContextData } from '~types';
+import {
+    ICommonContextData, ICourseContextData, ICoursesContextData, IUserContextData,
+} from '~types';
 
-export type TUnionContext = {}
+export type TUnionContext =
+    | ICommonContextData
     | ICourseContextData
     | ICoursesContextData
     | IUserContextData

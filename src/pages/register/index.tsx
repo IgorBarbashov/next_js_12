@@ -8,12 +8,15 @@ const RegisterPage: NextPage = (): ReactElement => {
     const contentJSX = (
         <ContentView
             content = { <RegisterComponent /> }
+            sider = { null }
         />
     );
 
     return (
         <AppView
+            header = { null }
             content = { contentJSX }
+            footer = { null }
         />
     );
 };

@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
-import { NextPage, GetServerSideProps, GetServerSidePropsResult } from 'next';
+import {
+    NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
+} from 'next';
 import { AppView } from '~views/app';
 import { ContentView } from '~views/content';
 import { HeaderComponent } from '~components/header';
@@ -7,13 +9,17 @@ import { FooterComponent } from '~components/footer';
 import { CoursesComponent } from '~components/courses';
 import { ProfileCardComponent } from '~components/profileCard';
 import { CourseService } from '~services';
-import { TCoursesContext } from '~types';
+import { useStore } from '~lib/context/contextProvider';
+import { ICommonContextData, TCoursesContext } from '~types';
+import { getAuthData } from '../utils/authUtils';
 
 const Home: NextPage = (): ReactElement => {
+    const { isLogged = false } = useStore() as ICommonContextData;
+
     const contentJSX = (
         <ContentView
             content = { <CoursesComponent /> }
-            sider = { <ProfileCardComponent /> }
+            sider = { isLogged ? <ProfileCardComponent /> : null }
         />
     );
 
@@ -27,7 +33,10 @@ const Home: NextPage = (): ReactElement => {
 };
 
 export const getServerSideProps: GetServerSideProps<TCoursesContext> =
-    async (): Promise<GetServerSidePropsResult<TCoursesContext>> => {
+    async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TCoursesContext>> => {
+        const authData = await getAuthData(ctx);
+        console.log('authStatusObject:', authData);
+
         const courseService = new CourseService();
         let courses = null;
 

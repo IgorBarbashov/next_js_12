@@ -2,12 +2,12 @@ import { FC, ReactElement } from 'react';
 
 interface IContentViewProps {
     content: ReactElement;
-    sider?: ReactElement;
+    sider: ReactElement | null;
 }
 
 export const ContentView: FC<IContentViewProps> = ({
     content,
-    sider = null,
+    sider,
 }) => {
     const contentWrapperClasses = sider === null
         ? 'col-xl-12 col-lg-12'

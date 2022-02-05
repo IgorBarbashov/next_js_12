@@ -8,12 +8,15 @@ const LoginPage: NextPage = (): ReactElement => {
     const contentJSX = (
         <ContentView
             content = { <LoginComponent /> }
+            sider = { null }
         />
     );
 
     return (
         <AppView
+            header = { null }
             content = { contentJSX }
+            footer = { null }
         />
     );
 };
