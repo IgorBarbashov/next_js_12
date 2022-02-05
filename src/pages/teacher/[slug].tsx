@@ -1,14 +1,12 @@
 import { ReactElement } from 'react';
-import {
-    NextPage, GetStaticProps, GetStaticPaths, GetStaticPathsResult, GetStaticPropsResult,
-} from 'next';
+import { NextPage, GetServerSideProps, GetServerSidePropsResult } from 'next';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
-import { CourseService } from '~services';
-import { TEACHER_PAGE } from '~constants';
-import { IUserContext, IUserDynamicPathSegment, TCoursesContext } from '~types';
+import { TeacherService } from '~services';
+import { getAuthData, redirectObject } from '~utils';
+import { TUserContext, IUserDynamicPathSegment } from '~types';
 
 const TeacherPage: NextPage = (): ReactElement => (
     <AppView
@@ -18,45 +16,38 @@ const TeacherPage: NextPage = (): ReactElement => (
     />
 );
 
-export const getStaticPaths: GetStaticPaths<IUserDynamicPathSegment> =
-    async (): Promise<GetStaticPathsResult<IUserDynamicPathSegment>> => {
-        const paths = TEACHER_PAGE.VALID_SLUGS.map((slug) => ({ params: { slug } }));
-        return { paths, fallback: false };
-    };
-
-export const getStaticProps: GetStaticProps<IUserContext | TCoursesContext, IUserDynamicPathSegment> =
-    async ({ params }): Promise<GetStaticPropsResult<IUserContext | TCoursesContext>> => {
-        const user = {
-            avatar: '/images/hd_dp.jpg',
-            name: 'Joginder Singh',
-            hash: 'hash',
-            email: 'teacher@teacher.com',
-        };
-
-        let courses = null;
-        const courseService = new CourseService();
-        try {
-            const { data } = await courseService.get();
-            courses = data?.data || null;
-        } catch (e) {
-            process.stderr.write('API error');
+export const getServerSideProps: GetServerSideProps<TUserContext, IUserDynamicPathSegment> =
+    async (ctx): Promise<GetServerSidePropsResult<TUserContext>> => {
+        const { isLogged, profile } = await getAuthData(ctx);
+        if (!isLogged) {
+            return redirectObject();
         }
-
-        if (user === null) {
+        if (profile === null) {
             return {
                 notFound: true,
             };
         }
 
+        let courses = null;
+        const teacherService = new TeacherService();
+        try {
+            const { data } = await teacherService.getCourses();
+            courses = data?.data || null;
+        } catch (e) {
+            process.stderr.write('API error');
+        }
+
         return {
             props: {
                 contextData: {
-                    user,
-                    courses,
-                    slug: params?.slug ?? '',
+                    isLogged,
+                    slug: ctx.params?.slug ?? '',
+                    user: {
+                        profile,
+                        courses,
+                    },
                 },
             },
-            revalidate: 15,
         };
     };
 

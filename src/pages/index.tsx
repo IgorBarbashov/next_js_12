@@ -10,8 +10,8 @@ import { CoursesComponent } from '~components/courses';
 import { ProfileCardComponent } from '~components/profileCard';
 import { CourseService } from '~services';
 import { useStore } from '~lib/context/contextProvider';
-import { ICommonContextData, TCoursesContext } from '~types';
-import { getAuthData } from '../utils/authUtils';
+import { ICommonContextData, TCoursesContext, TUserContext } from '~types';
+import { getAuthData } from '~utils';
 
 const Home: NextPage = (): ReactElement => {
     const { isLogged = false } = useStore() as ICommonContextData;
@@ -32,14 +32,12 @@ const Home: NextPage = (): ReactElement => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<TCoursesContext> =
-    async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TCoursesContext>> => {
-        const authData = await getAuthData(ctx);
-        console.log('authStatusObject:', authData);
+export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserContext> =
+    async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TCoursesContext | TUserContext>> => {
+        const { isLogged, profile } = await getAuthData(ctx);
 
         const courseService = new CourseService();
         let courses = null;
-
         try {
             const { data } = await courseService.get();
             courses = data?.data || null;
@@ -50,6 +48,10 @@ export const getServerSideProps: GetServerSideProps<TCoursesContext> =
         return {
             props: {
                 contextData: {
+                    isLogged,
+                    user: {
+                        profile,
+                    },
                     courses,
                 },
             },
