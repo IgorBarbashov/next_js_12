@@ -26,11 +26,6 @@ export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserConte
         if (!isLogged) {
             return redirectObject();
         }
-        if (profile === null) {
-            return {
-                notFound: true,
-            };
-        }
 
         let courses = null;
         const teacherService = new TeacherService();
