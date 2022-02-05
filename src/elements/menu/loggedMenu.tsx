@@ -48,15 +48,12 @@ export const LoggedMenuElement: FC = (): ReactElement => {
                 </Link>
             </li>
             <li className = 'ui dropdown'>
-                <Link href = '#'>
-                    <a
-                        className = 'opts_account log_out _5f7g11'
-                        title = 'Log out'
-                        onClick = { handler }
-                    >
-                        Log out
-                    </a>
-                </Link>
+                <a
+                    className = 'opts_account log_out _5f7g11'
+                    onClick = { handler }
+                >
+                    Log out
+                </a>
             </li>
         </ul>
     );
