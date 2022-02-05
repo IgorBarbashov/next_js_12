@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { AuthService, UserService } from '~services';
-import { serverSideCookies } from '~utils';
 import { COOKIES } from '~constants';
 import { IAuthStatusObject } from '~types';
+import { serverSideCookies } from './cookieUtils';
 
 const authService = new AuthService();
 const userService = new UserService();
