@@ -27,6 +27,16 @@ export const serverSideCookies = {
         nookies.set(ctx, name, value, options);
     },
 
+    setSessionCookie: (
+        ctx: GetServerSidePropsContext,
+        name: string,
+        value: string,
+        options: TDefaultCookiesOptions = defaultCookiesOptions,
+    ): void => {
+        const { maxAge, ...restOptions } = options;
+        nookies.set(ctx, name, value, restOptions);
+    },
+
     deleteCookie: (
         ctx: GetServerSidePropsContext,
         name: string,
@@ -52,6 +62,15 @@ export const clientCookies = {
         options: TDefaultCookiesOptions = defaultCookiesOptions,
     ): void => {
         setCookie(null, name, value, options);
+    },
+
+    setSessionCookie: (
+        name: string,
+        value: string,
+        options: TDefaultCookiesOptions = defaultCookiesOptions,
+    ): void => {
+        const { maxAge, ...restOptions } = options;
+        setCookie(null, name, value, restOptions);
     },
 
     deleteCookie: (name: string): void => {

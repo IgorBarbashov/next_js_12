@@ -18,12 +18,13 @@ export const LoginFormElement: FC = (): ReactElement => {
         resolver: yupResolver(loginFormSchema),
     });
 
-    const onSubmit = async ({ email, password }: ILoginForm): Promise<void> => {
+    const onSubmit = async ({ email, password, remember }: ILoginForm): Promise<void> => {
         try {
             const { data } = await authService.login(email, password);
             const jwtToken = data?.data ?? null;
             if (jwtToken !== null) {
-                clientCookies.setCookie(COOKIES.JWT_TOKEN, jwtToken);
+                const setCookieFn = clientCookies[remember ? 'setCookie' : 'setSessionCookie'];
+                setCookieFn(COOKIES.JWT_TOKEN, jwtToken);
                 await router.push('/');
             } else {
                 clientCookies.deleteCookie(COOKIES.JWT_TOKEN);
