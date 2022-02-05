@@ -13,7 +13,7 @@ export const TeacherCoursesElement = () => {
             role = 'tabpanel'
         >
             <div className = 'crse_content'>
-                { coursesCount ? <h3>{ `My courses (${coursesCount})` }</h3> : null }
+                <h3>{ `My courses (${coursesCount ?? 0})` }</h3>
                 <div className = '_14d25'>
                     <div className = 'row'>
                         <div className = 'col-12'>

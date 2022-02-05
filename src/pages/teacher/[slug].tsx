@@ -1,12 +1,14 @@
 import { ReactElement } from 'react';
-import { NextPage, GetServerSideProps, GetServerSidePropsResult } from 'next';
+import {
+    NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
+} from 'next';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
 import { TeacherService } from '~services';
 import { getAuthData, redirectObject } from '~utils';
-import { TUserContext, IUserDynamicPathSegment } from '~types';
+import { TUserContext, IUserDynamicPathSegment, TCoursesContext } from '~types';
 
 const TeacherPage: NextPage = (): ReactElement => (
     <AppView
@@ -16,8 +18,10 @@ const TeacherPage: NextPage = (): ReactElement => (
     />
 );
 
-export const getServerSideProps: GetServerSideProps<TUserContext, IUserDynamicPathSegment> =
-    async (ctx): Promise<GetServerSidePropsResult<TUserContext>> => {
+export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserContext, IUserDynamicPathSegment> =
+    async (
+        ctx: GetServerSidePropsContext<IUserDynamicPathSegment>,
+    ): Promise<GetServerSidePropsResult<TCoursesContext | TUserContext>> => {
         const { isLogged, profile } = await getAuthData(ctx);
         if (!isLogged) {
             return redirectObject();
@@ -42,10 +46,8 @@ export const getServerSideProps: GetServerSideProps<TUserContext, IUserDynamicPa
                 contextData: {
                     isLogged,
                     slug: ctx.params?.slug ?? '',
-                    user: {
-                        profile,
-                        courses,
-                    },
+                    profile,
+                    courses,
                 },
             },
         };

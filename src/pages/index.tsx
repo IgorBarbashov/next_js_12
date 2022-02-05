@@ -49,9 +49,7 @@ export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserConte
             props: {
                 contextData: {
                     isLogged,
-                    user: {
-                        profile,
-                    },
+                    profile,
                     courses,
                 },
             },

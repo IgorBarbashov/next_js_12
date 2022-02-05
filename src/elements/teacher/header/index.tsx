@@ -1,10 +1,17 @@
 import { FC, ReactElement } from 'react';
-import { useStore } from '~lib/context/contextProvider';
-import { IUserContextData } from '~types';
 import Image from 'next/image';
+import { useStore } from '~lib/context/contextProvider';
+import { ApiErrorElement } from '~elements/error/apiError';
+import { IUserContextData } from '~types';
 
 export const TeacherHeaderElement: FC = (): ReactElement => {
-    const { user: { avatar, name } } = useStore() as IUserContextData;
+    const { profile } = useStore() as IUserContextData;
+
+    if (profile === null) {
+        return <ApiErrorElement />;
+    }
+
+    const { avatar, name } = profile;
 
     return (
         <div className = '_216b01'>
