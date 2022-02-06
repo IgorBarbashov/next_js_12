@@ -2,22 +2,35 @@ import { ReactElement } from 'react';
 import {
     NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
 } from 'next';
+import Head from 'next/head';
 import axios, { AxiosError } from 'axios';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { CourseComponent } from '~components/course';
 import { FooterComponent } from '~components/footer';
 import { CourseService } from '~services';
-import { TCourseContext, ICoursesDynamicPathSegment, TUserContext } from '~types';
+import { useStore } from '~lib/context/contextProvider';
+import {
+    TCourseContext, ICoursesDynamicPathSegment, TUserContext, ICourseContextData,
+} from '~types';
 import { getAuthData } from '~utils';
 
-const CoursePage: NextPage = (): ReactElement => (
-    <AppView
-        header = { <HeaderComponent /> }
-        content = { <CourseComponent /> }
-        footer = { <FooterComponent /> }
-    />
-);
+const CoursePage: NextPage = (): ReactElement => {
+    const { course } = useStore() as ICourseContextData;
+
+    return (
+        <>
+            <Head>
+                <title>{ `${course?.description ?? 'Lectrum LLC | Courses'}` }</title>
+            </Head>
+            <AppView
+                header = { <HeaderComponent /> }
+                content = { <CourseComponent /> }
+                footer = { <FooterComponent /> }
+            />
+        </>
+    );
+};
 
 export const getServerSideProps: GetServerSideProps<TCourseContext | TUserContext, ICoursesDynamicPathSegment> = (
     async (

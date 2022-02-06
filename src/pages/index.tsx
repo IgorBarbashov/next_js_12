@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import {
     NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
 } from 'next';
+import Head from 'next/head';
 import { AppView } from '~views/app';
 import { ContentView } from '~views/content';
 import { HeaderComponent } from '~components/header';
@@ -24,11 +25,16 @@ const Home: NextPage = (): ReactElement => {
     );
 
     return (
-        <AppView
-            header = { <HeaderComponent /> }
-            content = { contentJSX }
-            footer = { <FooterComponent /> }
-        />
+        <>
+            <Head>
+                <title>Lectrum LLC</title>
+            </Head>
+            <AppView
+                header = { <HeaderComponent /> }
+                content = { contentJSX }
+                footer = { <FooterComponent /> }
+            />
+        </>
     );
 };
 
