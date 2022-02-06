@@ -2,9 +2,11 @@ import nookies, { parseCookies, setCookie, destroyCookie } from 'nookies';
 import { GetServerSidePropsContext } from 'next';
 import { TStringOrNull } from '~types';
 
+const path = '/';
+
 const defaultCookiesOptions = {
     maxAge: 30 * 24 * 60 * 60,
-    path: '/',
+    path,
 };
 
 type TDefaultCookiesOptions = typeof defaultCookiesOptions;
@@ -41,7 +43,7 @@ export const serverSideCookies = {
         ctx: GetServerSidePropsContext,
         name: string,
     ): void => {
-        nookies.destroy(ctx, name);
+        nookies.destroy(ctx, name, { path });
     },
 
     isCookieSet: (
@@ -74,7 +76,7 @@ export const clientCookies = {
     },
 
     deleteCookie: (name: string): void => {
-        destroyCookie(null, name);
+        destroyCookie(null, name, { path });
     },
 
     isCookieSet: (name: string): boolean => !(clientCookies.getCookie(name) === null),
