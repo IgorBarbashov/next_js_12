@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserConte
     ): Promise<GetServerSidePropsResult<TCoursesContext | TUserContext>> => {
         const { isLogged, profile } = await getAuthData(ctx);
         if (!isLogged) {
-            return redirectObject();
+            return redirectObject({ destination: '/login' });
         }
 
         let courses = null;

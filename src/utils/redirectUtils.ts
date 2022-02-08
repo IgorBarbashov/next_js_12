@@ -1,18 +1,18 @@
 import { GetServerSidePropsResult, Redirect } from 'next';
 
-export const redirectObject = (
+export const redirectObject = ({
     destination = '/',
     permanent = false,
-): { redirect: Redirect } => (
+} = {}): { redirect: Redirect } => (
     { redirect: { destination, permanent } }
 );
 
-export const redirectIsLogged = (
-    isLogged: boolean,
+export const redirectIsLogged = ({
+    isLogged = false,
     destination = '/',
     permanent = false,
-): GetServerSidePropsResult<{}> => (
+} = {}): GetServerSidePropsResult<{}> => (
     isLogged
-        ? redirectObject(destination, permanent)
+        ? redirectObject({ destination, permanent })
         : { props: {} }
 );

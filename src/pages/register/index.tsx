@@ -33,7 +33,7 @@ const RegisterPage: NextPage = (): ReactElement => {
 export const getServerSideProps: GetServerSideProps<{}> =
     async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<{}>> => {
         const { isLogged } = await getAuthData(ctx);
-        return redirectIsLogged(isLogged, '/teacher/about');
+        return redirectIsLogged({ isLogged, destination: '/teacher/about' });
     };
 
 export default RegisterPage;
