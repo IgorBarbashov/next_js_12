@@ -2854,6 +2854,9 @@ a.opts_account:hover + div.dropdown_account {
     border: 1px solid #333 !important;
 	box-shadow: none !important;
 }
+.srch_explore.error {
+     border-color: red !important;
+}
 
 .ui.swdh11 {
     font-size: 14px !important;
@@ -6136,7 +6139,6 @@ a.rmv-btn i {
 }
 
 .ui.checkbox.mncheck .box:before, .ui.checkbox.mncheck label:before {
-    border-radius: 100%;
 	width: 18px !important;
 	height: 18px !important;
 	margin-top: 3px;

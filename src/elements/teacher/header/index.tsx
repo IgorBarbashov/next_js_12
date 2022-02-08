@@ -1,9 +1,17 @@
 import { FC, ReactElement } from 'react';
+import Image from 'next/image';
 import { useStore } from '~lib/context/contextProvider';
-import { ITeacherContextData } from '~types';
+import { ApiErrorElement } from '~elements/error/apiError';
+import { IUserContextData } from '~types';
 
 export const TeacherHeaderElement: FC = (): ReactElement => {
-    const { teacher: { avatarSrc, name, professional } } = useStore() as ITeacherContextData;
+    const { profile } = useStore() as IUserContextData;
+
+    if (profile === null) {
+        return <ApiErrorElement />;
+    }
+
+    const { avatar, name } = profile;
 
     return (
         <div className = '_216b01'>
@@ -15,11 +23,16 @@ export const TeacherHeaderElement: FC = (): ReactElement => {
                                 <div className = 'col-lg-7'>
                                     <div className = 'dp_dt150'>
                                         <div className = 'img148'>
-                                            <img src = { avatarSrc } alt = '' />
+                                            <Image
+                                                src = { avatar }
+                                                alt = ''
+                                                width = { 106 }
+                                                height = { 106 }
+                                            />
                                         </div>
                                         <div className = 'prfledt1'>
                                             <h2>{ name }</h2>
-                                            <span>{ professional }</span>
+                                            <span>UI / UX Designer and Web Developer</span>
                                         </div>
                                     </div>
                                 </div>

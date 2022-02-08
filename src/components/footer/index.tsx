@@ -12,7 +12,7 @@ export const FooterComponent: FC = (): ReactElement => (
                                 <ul className = 'fotb_left'>
                                     <li>
                                         <p>
-                                            © 2021
+                                            © 2022
                                             { ' ' }
                                             <Link href = '/'>
                                                 <a className = 'footer-link'>

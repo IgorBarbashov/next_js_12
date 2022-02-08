@@ -13,7 +13,11 @@ export class CourseService {
         return axios.get(`${BASE_URL}${ENTITY}?${query}`);
     };
 
-    getById = (id: TStringOrNumber): TGetCourseResponse => axios.get(`${BASE_URL}${ENTITY}/${id}`);
+    getById = (id: TStringOrNumber): TGetCourseResponse => (
+        axios.get(`${BASE_URL}${ENTITY}/${id}`)
+    );
 
-    increaseViewsCount = (id: TStringOrNumber): TPutViewsResponse => axios.put(`${BASE_URL}${ENTITY}/${id}/${INCREASE_VIEWS}`);
+    increaseViewsCount = (id: TStringOrNumber): TPutViewsResponse => (
+        axios.put(`${BASE_URL}${ENTITY}/${id}/${INCREASE_VIEWS}`)
+    );
 }

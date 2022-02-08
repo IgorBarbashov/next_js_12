@@ -1,56 +1,63 @@
 import { ReactElement } from 'react';
 import {
-    NextPage, GetStaticProps, GetStaticPaths, GetStaticPathsResult, GetStaticPropsResult,
+    NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
 } from 'next';
+import Head from 'next/head';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
-import { CourseService } from '~services';
-import { TEACHER_PAGE } from '~constants';
-import { ITeacherContext, ITeacherDynamicPathSegment } from '~types';
+import { TeacherService } from '~services';
+import { useStore } from '~lib/context/contextProvider';
+import { getAuthData, redirectObject } from '~utils';
+import {
+    TUserContext, IUserDynamicPathSegment, TCoursesContext, ICommonContextData,
+} from '~types';
 
-const TeacherPage: NextPage = (): ReactElement => (
-    <AppView
-        header = { <HeaderComponent /> }
-        content = { <TeacherComponent /> }
-        footer = { <FooterComponent /> }
-    />
-);
-
-export const getStaticPaths: GetStaticPaths<ITeacherDynamicPathSegment> = async (): Promise<GetStaticPathsResult<ITeacherDynamicPathSegment>> => {
-    const paths = TEACHER_PAGE.VALID_SLUGS.map((slug) => ({ params: { slug } }));
-    return { paths, fallback: false };
+const TeacherPage: NextPage = (): ReactElement => {
+    const { slug } = useStore() as ICommonContextData;
+    return (
+        <>
+            <Head>
+                <title>{ `Teacher - ${slug}` }</title>
+            </Head>
+            <AppView
+                header = { <HeaderComponent /> }
+                content = { <TeacherComponent /> }
+                footer = { <FooterComponent /> }
+            />
+        </>
+    );
 };
 
-export const getStaticProps: GetStaticProps<ITeacherContext, ITeacherDynamicPathSegment> = async ({
-    params,
-}): Promise<GetStaticPropsResult<ITeacherContext>> => {
-    const teacher = {
-        avatarSrc: '/images/hd_dp.jpg',
-        name: 'Joginder Singh',
-        professional: 'UI / UX Designer and Web Developer',
-    };
+export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserContext, IUserDynamicPathSegment> =
+    async (
+        ctx: GetServerSidePropsContext<IUserDynamicPathSegment>,
+    ): Promise<GetServerSidePropsResult<TCoursesContext | TUserContext>> => {
+        const { isLogged, profile } = await getAuthData(ctx);
+        if (!isLogged) {
+            return redirectObject();
+        }
 
-    let courses = null;
-    const courseService = new CourseService();
-    try {
-        const { data } = await courseService.get();
-        courses = data?.data || null;
-    } catch (e) {
-        process.stderr.write('API error');
-    }
+        let courses = null;
+        const teacherService = new TeacherService();
+        try {
+            const { data } = await teacherService.getCourses();
+            courses = data?.data || null;
+        } catch (e) {
+            process.stderr.write('API error');
+        }
 
-    return {
-        props: {
-            contextData: {
-                teacher,
-                courses,
-                slug: params?.slug ?? '',
+        return {
+            props: {
+                contextData: {
+                    isLogged,
+                    slug: ctx.params?.slug ?? '',
+                    profile,
+                    courses,
+                },
             },
-        },
-        revalidate: 15,
+        };
     };
-};
 
 export default TeacherPage;

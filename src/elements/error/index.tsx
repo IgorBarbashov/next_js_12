@@ -1,5 +1,8 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+import logo from '../../../public/images/ct_logo.svg';
 
 interface IErrorElementProps {
     statusCode: number;
@@ -19,7 +22,13 @@ export const ErrorElement: FC<IErrorElementProps> = ({
                             <div className = 'ct-logo'>
                                 <Link href = '/'>
                                     <a>
-                                        <img src = '/images/ct_logo.svg' alt = 'logo' />
+                                        <Image
+                                            src = { logo }
+                                            alt = 'logo'
+                                            layout = 'fixed'
+                                            width = { 300 }
+                                            height = { 71 }
+                                        />
                                     </a>
                                 </Link>
                             </div>

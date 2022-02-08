@@ -1,5 +1,6 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { monthsToNow, formatThousandsAndMillions } from '~utils';
 import { ICourse } from '~types';
 
@@ -18,7 +19,13 @@ export const CourseCardElement: FC<ICourseCardElementProps> = ({
         <div className = 'fcrse_1 mb-20'>
             <Link href = { `/courses/${hash}` }>
                 <a className = 'fcrse_img'>
-                    <img src = { poster } alt = '' />
+                    <Image
+                        src = { poster }
+                        layout = 'responsive'
+                        width = { 480 }
+                        height = { 270 }
+                        alt = ''
+                    />
                     <div className = 'course-overlay'>
                         { badge ? <div className = 'badge_seller'>Bestseller</div> : null }
                         <div className = 'crse_reviews'>
