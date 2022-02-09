@@ -16,6 +16,7 @@ import {
 
 const TeacherPage: NextPage = (): ReactElement => {
     const { slug } = useStore() as ICommonContextData;
+
     return (
         <>
             <Head>

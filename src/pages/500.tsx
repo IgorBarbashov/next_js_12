@@ -8,6 +8,7 @@ import { getLocale } from '~utils';
 
 const ServerErrorPage: NextPage = (): ReactElement => {
     const { t } = useTranslation();
+
     return (
         <>
             <Head>
