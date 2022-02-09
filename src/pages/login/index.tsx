@@ -24,7 +24,7 @@ const LoginPage: NextPage = (): ReactElement => {
     return (
         <>
             <Head>
-                <title>{ t('common:signInPageTitle') }</title>
+                <title>{ t('common:signIn') }</title>
             </Head>
             <AppView
                 header = { null }

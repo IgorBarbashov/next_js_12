@@ -2,6 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import { useStore } from '~lib/context/contextProvider';
 import { clientCookies } from '~utils';
 import { COOKIES } from '~constants';
@@ -10,6 +11,8 @@ import { ApiErrorElement } from '~elements/error/apiError';
 
 export const LoggedMenuElement: FC = (): ReactElement => {
     const router = useRouter();
+    const { t } = useTranslation();
+
     const { profile } = useStore() as IUserContextData;
 
     if (profile === null) {
@@ -29,7 +32,7 @@ export const LoggedMenuElement: FC = (): ReactElement => {
             <li>
                 <Link href = '#'>
                     <a className = 'upload_btn' title = 'Create New Course'>
-                        Create New Course
+                        { t('common:createNewCourse') }
                     </a>
                 </Link>
             </li>
@@ -53,7 +56,7 @@ export const LoggedMenuElement: FC = (): ReactElement => {
                         className = 'opts_account log_out _5f7g11'
                         onClick = { handler }
                     >
-                        Log out
+                        { t('common:logOut') }
                     </a>
                 </Link>
             </li>

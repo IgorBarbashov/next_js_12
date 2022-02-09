@@ -1,12 +1,15 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
 import { useStore } from '~lib/context/contextProvider';
 import { formatDate } from '~utils';
 import { ICourse, ICourseContextData } from '~types';
 
 export const CourseHeaderElement: FC = (): ReactElement => {
     const { course } = useStore() as ICourseContextData;
+    const { t } = useTranslation();
+
     const {
         badge, rating, poster, views, description, technologies, votes, created,
     } = course as ICourse;
@@ -35,7 +38,9 @@ export const CourseHeaderElement: FC = (): ReactElement => {
                                                     height = { 270 }
                                                 />
                                                 <div className = 'course-overlay'>
-                                                    { badge ? <div className = 'badge_seller'>Bestseller</div> : null }
+                                                    { badge
+                                                        ? <div className = 'badge_seller'>{ t('common:bestseller') }</div>
+                                                        : null }
                                                 </div>
                                             </a>
                                         </Link>
@@ -51,17 +56,17 @@ export const CourseHeaderElement: FC = (): ReactElement => {
                                             <i className = 'uil uil-star' />
                                             { rating }
                                         </div>
-                                        { `(${votes} ratings)` }
+                                        { `(${votes} ${t('common:ratings')})` }
                                     </div>
-                                    <div className = '_215b05'>{ `${views.toLocaleString()} students enrolled` }</div>
+                                    <div className = '_215b05'>{ `${views.toLocaleString()} ${t('common:studentsEnrolled')}` }</div>
                                     <div className = '_215b06'>
                                         <div className = '_215b07'>
                                             <span><i className = 'uil uil-comment' /></span>
-                                            English
+                                            { t('common:english') }
                                         </div>
                                     </div>
                                     <div className = '_215b05'>
-                                        { `Last updated ${formatDate(created, 'M/YYYY')}` }
+                                        { `${t('common:lastUpdated')} ${formatDate(created, 'M/YYYY')}` }
                                     </div>
                                 </div>
                             </div>

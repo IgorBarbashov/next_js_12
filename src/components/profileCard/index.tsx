@@ -1,12 +1,14 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from 'next-i18next';
 import { useStore } from '~lib/context/contextProvider';
 import { IUserContextData } from '~types';
 import { ApiErrorElement } from '~elements/error/apiError';
 
 export const ProfileCardComponent: FC = (): ReactElement => {
     const { profile } = useStore() as IUserContextData;
+    const { t } = useTranslation();
 
     if (profile === null) {
         return <ApiErrorElement />;
@@ -38,14 +40,14 @@ export const ProfileCardComponent: FC = (): ReactElement => {
                     </div>
                 </div>
                 <div className = 'tutor_cate'>
-                    Web Developer, Designer, and Teacher
+                    { t('profileDefaultProfession') }
                 </div>
                 <div className = 'tut1250'>
-                    <span className = 'vdt15'>615K Students</span>
-                    <span className = 'vdt15'>12 Courses</span>
+                    <span className = 'vdt15'>{ `615K ${t('common:profileStudentsCount')}` }</span>
+                    <span className = 'vdt15'>{ `12 ${t('common:profileCoursesCount')}` }</span>
                 </div>
                 <Link href = '/teacher/about'>
-                    <a className = 'prfle12link'>Go To Profile</a>
+                    <a className = 'prfle12link'>{ t('common:profileGotoDetailsButton') }</a>
                 </Link>
             </div>
         </div>

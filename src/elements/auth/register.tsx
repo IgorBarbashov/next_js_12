@@ -2,6 +2,7 @@ import React, { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'next-i18next';
 import classNames from 'classnames';
 import { AuthService } from '~services';
 import { registerFormSchema } from '~validation/schema';
@@ -14,6 +15,8 @@ const authService = new AuthService();
 
 export const RegisterFormElement: FC = (): ReactElement => {
     const router = useRouter();
+    const { t } = useTranslation();
+
     const { register, handleSubmit, formState: { errors } } = useForm<IRegisterForm>({
         resolver: yupResolver(registerFormSchema),
     });
@@ -35,15 +38,15 @@ export const RegisterFormElement: FC = (): ReactElement => {
 
     return (
         <div className = 'sign_form'>
-            <h2>Welcome to Cursus</h2>
-            <p>Sign Up and Start Learning!</p>
+            <h2>{ t('common:welcomeToCursus') }</h2>
+            <p>{ t('common:signUpAndStart') }</p>
             <form>
                 <div className = 'ui search focus'>
                     <div className = 'ui left icon input swdh11 swdh19'>
                         <input
                             { ...register('fullName') }
                             className = { classNames('prompt srch_explore', { error: errors.fullName }) }
-                            placeholder = 'Full Name'
+                            placeholder = { t('common:fullName') }
                         />
                     </div>
                 </div>
@@ -53,7 +56,7 @@ export const RegisterFormElement: FC = (): ReactElement => {
                             { ...register('email') }
                             className = { classNames('prompt srch_explore', { error: errors.email }) }
                             type = 'email'
-                            placeholder = 'Email Address'
+                            placeholder = { t('common:emailAddress') }
                         />
                     </div>
                 </div>
@@ -63,7 +66,7 @@ export const RegisterFormElement: FC = (): ReactElement => {
                             { ...register('password') }
                             className = { classNames('prompt srch_explore', { error: errors.password }) }
                             type = 'password'
-                            placeholder = 'Password'
+                            placeholder = { t('common:password') }
                         />
                     </div>
                 </div>
@@ -73,7 +76,7 @@ export const RegisterFormElement: FC = (): ReactElement => {
                             { ...register('repeatPassword') }
                             className = { classNames('prompt srch_explore', { error: errors.repeatPassword }) }
                             type = 'password'
-                            placeholder = 'Repeat password'
+                            placeholder = { t('common:repeatPassword') }
                         />
                     </div>
                 </div>
@@ -82,14 +85,14 @@ export const RegisterFormElement: FC = (): ReactElement => {
                     type = 'button'
                     onClick = { handleSubmit(onSubmit) }
                 >
-                    Sign Up
+                    { t('common:signUp') }
                 </button>
             </form>
             <p className = 'mb-0 mt-30 hvsng145'>
-                Already have an account?
+                { t('common:alreadyHaveAnAccount') }
                 { ' ' }
                 <Link href = '/login'>
-                    <a>Log In</a>
+                    <a>{ t('common:logIn') }</a>
                 </Link>
             </p>
         </div>

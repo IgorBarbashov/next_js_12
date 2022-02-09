@@ -3,6 +3,8 @@ import {
     NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
 } from 'next';
 import Head from 'next/head';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { SSRConfig } from 'next-i18next';
 import { AppView } from '~views/app';
 import { ContentView } from '~views/content';
 import { HeaderComponent } from '~components/header';
@@ -12,7 +14,7 @@ import { ProfileCardComponent } from '~components/profileCard';
 import { CourseService } from '~services';
 import { useStore } from '~lib/context/contextProvider';
 import { ICommonContextData, TCoursesContext, TUserContext } from '~types';
-import { getAuthData } from '~utils';
+import { getAuthData, getLocale } from '~utils';
 
 const Home: NextPage = (): ReactElement => {
     const { isLogged = false } = useStore() as ICommonContextData;
@@ -38,8 +40,8 @@ const Home: NextPage = (): ReactElement => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserContext> =
-    async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<TCoursesContext | TUserContext>> => {
+export const getServerSideProps: GetServerSideProps<(TCoursesContext | TUserContext) & SSRConfig> =
+    async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<(TCoursesContext | TUserContext) & SSRConfig>> => {
         const { isLogged, profile } = await getAuthData(ctx);
 
         const courseService = new CourseService();
@@ -58,6 +60,7 @@ export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserConte
                     profile,
                     courses,
                 },
+                ...await serverSideTranslations(getLocale(ctx), ['common']),
             },
         };
     };

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'next-i18next';
 import classNames from 'classnames';
 import { AuthService } from '~services';
 import { clientCookies } from '~utils';
@@ -14,6 +15,7 @@ const authService = new AuthService();
 
 export const LoginFormElement: FC = (): ReactElement => {
     const router = useRouter();
+    const { t } = useTranslation();
     const { register, handleSubmit, formState: { errors } } = useForm<ILoginForm>({
         resolver: yupResolver(loginFormSchema),
     });
@@ -36,8 +38,8 @@ export const LoginFormElement: FC = (): ReactElement => {
 
     return (
         <div className = 'sign_form'>
-            <h2>Welcome Back</h2>
-            <p>Log In to Your Edututs+ Account!</p>
+            <h2>{ t('common:welcomeBack') }</h2>
+            <p>{ t('common:logInInto') }</p>
             <form>
                 <div className = 'ui search focus mt-15'>
                     <div className = 'ui left icon input swdh95'>
@@ -45,7 +47,7 @@ export const LoginFormElement: FC = (): ReactElement => {
                             { ...register('email') }
                             className = { classNames('prompt srch_explore', { error: errors.email }) }
                             type = 'email'
-                            placeholder = 'Email Address'
+                            placeholder = { t('common:emailAddress') }
                         />
                     </div>
                 </div>
@@ -55,7 +57,7 @@ export const LoginFormElement: FC = (): ReactElement => {
                             { ...register('password') }
                             className = { classNames('prompt srch_explore', { error: errors.password }) }
                             type = 'password'
-                            placeholder = 'Password'
+                            placeholder = { t('common:password') }
                         />
                     </div>
                 </div>
@@ -68,7 +70,7 @@ export const LoginFormElement: FC = (): ReactElement => {
                                 className = 'hidden'
                                 type = 'checkbox'
                             />
-                            <label htmlFor = 'remember'>Remember Me</label>
+                            <label htmlFor = 'remember'>{ t('common:rememberMe') }</label>
                         </div>
                     </div>
                 </div>
@@ -77,14 +79,14 @@ export const LoginFormElement: FC = (): ReactElement => {
                     type = 'button'
                     onClick = { handleSubmit(onSubmit) }
                 >
-                    Sign In
+                    { t('common:signIn') }
                 </button>
             </form>
             <p className = 'mb-0 mt-30 hvsng145'>
-                Don&apos;t have an account?
+                { t('common:dontHaveAnAccount') }
                 { ' ' }
                 <Link href = '/register'>
-                    <a>Sign Up</a>
+                    <a>{ t('common:signUp') }</a>
                 </Link>
             </p>
         </div>
