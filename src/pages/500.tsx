@@ -11,7 +11,7 @@ const ServerErrorPage: NextPage = (): ReactElement => {
     return (
         <>
             <Head>
-                <title>{ t('common:pageNotFoundTitle') }</title>
+                <title>{ t('common:pageNotFoundPageTitle') }</title>
             </Head>
             <ErrorElement
                 statusCode = { 500 }
