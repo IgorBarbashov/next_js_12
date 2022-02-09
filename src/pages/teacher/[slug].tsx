@@ -3,24 +3,27 @@ import {
     NextPage, GetServerSideProps, GetServerSidePropsResult, GetServerSidePropsContext,
 } from 'next';
 import Head from 'next/head';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { SSRConfig, useTranslation } from 'next-i18next';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
 import { TeacherService } from '~services';
 import { useStore } from '~lib/context/contextProvider';
-import { getAuthData, redirectObject } from '~utils';
+import { getAuthData, getLocale, redirectObject } from '~utils';
 import {
     TUserContext, IUserDynamicPathSegment, TCoursesContext, ICommonContextData,
 } from '~types';
 
 const TeacherPage: NextPage = (): ReactElement => {
     const { slug } = useStore() as ICommonContextData;
+    const { t } = useTranslation();
 
     return (
         <>
             <Head>
-                <title>{ `Teacher - ${slug}` }</title>
+                <title>{ `${t('common:teacherPageTitle')} - ${slug}` }</title>
             </Head>
             <AppView
                 header = { <HeaderComponent /> }
@@ -31,10 +34,11 @@ const TeacherPage: NextPage = (): ReactElement => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserContext, IUserDynamicPathSegment> =
+export const getServerSideProps: GetServerSideProps<(TCoursesContext | TUserContext) & SSRConfig, IUserDynamicPathSegment> =
     async (
         ctx: GetServerSidePropsContext<IUserDynamicPathSegment>,
-    ): Promise<GetServerSidePropsResult<TCoursesContext | TUserContext>> => {
+    ): Promise<GetServerSidePropsResult<(TCoursesContext | TUserContext
+) & SSRConfig>> => {
         const { isLogged, profile } = await getAuthData(ctx);
         if (!isLogged) {
             return redirectObject({ destination: '/login' });
@@ -57,6 +61,7 @@ export const getServerSideProps: GetServerSideProps<TCoursesContext | TUserConte
                     profile,
                     courses,
                 },
+                ...await serverSideTranslations(getLocale(ctx), ['common']),
             },
         };
     };
