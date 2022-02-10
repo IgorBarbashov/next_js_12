@@ -1,17 +1,18 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
-import { useStore } from '~lib/context/contextProvider';
-import { ICommonContextData } from '~types';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 export const TeacherTabsElement: FC = (): ReactElement => {
-    const { slug = '' } = useStore() as ICommonContextData;
+    const { query: { slug = '' } } = useRouter();
+    const { t } = useTranslation();
 
     const tabs = [
         {
-            id: 'nav-about-tab', title: 'About', href: '/teacher/about', tabSlug: 'about',
+            id: 'nav-about-tab', title: t('common:about'), href: '/teacher/about', tabSlug: 'about',
         },
         {
-            id: 'nav-courses-tab', title: 'My courses', href: '/teacher/courses', tabSlug: 'courses',
+            id: 'nav-courses-tab', title: t('common:myCourses'), href: '/teacher/courses', tabSlug: 'courses',
         },
     ];
 

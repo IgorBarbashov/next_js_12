@@ -1,9 +1,17 @@
 import { FC, ReactElement } from 'react';
-import { useStore } from '~lib/context/contextProvider';
-import { ICourse, ICourseContextData } from '~types';
+import { ICourse, IGetCourseProps } from '~types';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 
 export const CourseInfoElement: FC = (): ReactElement => {
-    const { course } = useStore() as ICourseContextData;
+    const { query: { slug = '' } } = useRouter();
+    const course = useQueryData<ICourse, IGetCourseProps>(
+        [QUERY_KEYS.INCREASE_VIEWS_COUNT_AND_GET_COURSE, slug as string],
+        { id: slug as string },
+    );
+    const { t } = useTranslation();
+
     const {
         info: {
             requirements, descriptions, benefits, descriptionSummary,
@@ -51,20 +59,19 @@ export const CourseInfoElement: FC = (): ReactElement => {
                                 >
                                     <div className = '_htg451'>
                                         <div className = '_htg452'>
-                                            <h3>Requirements</h3>
+                                            <h3>{ t('common:requirements') }</h3>
                                             <ul className = '_abc124'>
                                                 { requirementsJsx }
                                             </ul>
                                         </div>
                                         <div className = '_htg452 mt-35'>
-                                            <h3>Description</h3>
+                                            <h3>{ t('common:description') }</h3>
                                             <ul className = '_abc124'>
                                                 { descriptionsJsx }
                                             </ul>
                                             <p>{ descriptionSummary }</p>
                                             <p>
-                                                Throughout the course we cover tons of tools and
-                                                technologies including:
+                                                { t('common:benefits') }
                                             </p>
                                             <ul className = '_abc124'>
                                                 { benefitsJsx }

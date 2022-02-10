@@ -1,11 +1,11 @@
 import { FC, ReactElement } from 'react';
 import Image from 'next/image';
-import { useStore } from '~lib/context/contextProvider';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 import { ApiErrorElement } from '~elements/error/apiError';
-import { IUserContextData } from '~types';
+import { IUserProfile } from '~types';
 
 export const TeacherHeaderElement: FC = (): ReactElement => {
-    const { profile } = useStore() as IUserContextData;
+    const profile = useQueryData<IUserProfile>(QUERY_KEYS.GET_USER_PROFILE);
 
     if (profile === null) {
         return <ApiErrorElement />;

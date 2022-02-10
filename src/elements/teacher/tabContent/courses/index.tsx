@@ -1,9 +1,12 @@
 import { CoursesComponent } from '~components/courses';
-import { useStore } from '~lib/context/contextProvider';
-import { ICoursesContextData } from '~types';
+import { useTranslation } from 'next-i18next';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
+import { ICourse, IGetCoursesProps } from '~types';
 
 export const TeacherCoursesElement = () => {
-    const { courses } = useStore() as ICoursesContextData;
+    const courses = useQueryData<ICourse[], IGetCoursesProps>(QUERY_KEYS.GET_TEACHER_COURSES);
+
+    const { t } = useTranslation();
     const coursesCount = courses?.length;
 
     return (
@@ -13,14 +16,14 @@ export const TeacherCoursesElement = () => {
             role = 'tabpanel'
         >
             <div className = 'crse_content'>
-                <h3>{ `My courses (${coursesCount ?? 0})` }</h3>
+                <h3>{ `${t('common:myCourses')} (${coursesCount ?? 0})` }</h3>
                 <div className = '_14d25'>
                     <div className = 'row'>
                         <div className = 'col-12'>
                             <div className = 'section3125'>
                                 <div className = 'la5lo1'>
                                     <div className = 'featured_courses'>
-                                        <CoursesComponent />
+                                        <CoursesComponent courses = { courses } />
                                     </div>
                                 </div>
                             </div>

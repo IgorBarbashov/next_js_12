@@ -1,18 +1,33 @@
 import { ReactElement } from 'react';
-import { NextPage } from 'next';
+import { GetStaticProps, GetStaticPropsResult, NextPage } from 'next';
+import { SSRConfig, useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Head from 'next/head';
 import { ErrorElement } from '~elements/error';
+import { getLocale } from '~utils';
 
-const ServerErrorPage: NextPage = (): ReactElement => (
-    <>
-        <Head>
-            <title>Page not found</title>
-        </Head>
-        <ErrorElement
-            statusCode = { 500 }
-            title = 'The page you were looking for could not be found.'
-        />
-    </>
-);
+const ServerErrorPage: NextPage = (): ReactElement => {
+    const { t } = useTranslation();
+
+    return (
+        <>
+            <Head>
+                <title>{ t('common:pageNotFoundPageTitle') }</title>
+            </Head>
+            <ErrorElement
+                statusCode = { 500 }
+                title = { t('common:pageNotFoundDescription') }
+            />
+        </>
+    );
+};
+
+export const getStaticProps: GetStaticProps<SSRConfig> = async (
+    context,
+): Promise<GetStaticPropsResult<SSRConfig>> => ({
+    props: {
+        ...await serverSideTranslations(getLocale(context), ['common']),
+    },
+});
 
 export default ServerErrorPage;

@@ -3,6 +3,6 @@ export interface ICommonContextData {
     isLogged?: boolean;
 }
 
-export type TContext<T> = {
+export type TContext<T = {}> = {
     contextData: T & ICommonContextData;
 }

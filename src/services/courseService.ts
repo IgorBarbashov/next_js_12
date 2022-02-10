@@ -1,23 +1,27 @@
 import axios from 'axios';
 import qs from 'qs';
 import { BASE_URL, API_PATHS } from '~constants';
-import {
-    TStringOrNumber, TGetCoursesResponse, TGetCourseResponse, TPutViewsResponse,
-} from '~types';
+import { TGetCoursesResponse, IGetCoursesProps, IGetCourseProps } from '~types';
 
 const { COURSES: { ENTITY, INCREASE_VIEWS } } = API_PATHS;
 
 export class CourseService {
-    get = (page?: number, limit?: number): TGetCoursesResponse => {
-        const query = qs.stringify({ page, limit });
-        return axios.get(`${BASE_URL}${ENTITY}?${query}`);
+    get = async ({ page, limit }: IGetCoursesProps = {}) => {
+        try {
+            const query = qs.stringify({ page, limit });
+            const { data } = await axios.get<TGetCoursesResponse>(`${BASE_URL}${ENTITY}?${query}`);
+            return data;
+        } catch (err) {
+            throw new Error();
+        }
     };
 
-    getById = (id: TStringOrNumber): TGetCourseResponse => (
-        axios.get(`${BASE_URL}${ENTITY}/${id}`)
-    );
-
-    increaseViewsCount = (id: TStringOrNumber): TPutViewsResponse => (
-        axios.put(`${BASE_URL}${ENTITY}/${id}/${INCREASE_VIEWS}`)
-    );
+    increaseViewsCount = async ({ id }: IGetCourseProps) => {
+        try {
+            const { data } = await axios.put(`${BASE_URL}${ENTITY}/${id}/${INCREASE_VIEWS}`);
+            return data;
+        } catch (err) {
+            throw new Error();
+        }
+    };
 }

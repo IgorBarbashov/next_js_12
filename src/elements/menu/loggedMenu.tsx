@@ -2,15 +2,17 @@ import React, { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useStore } from '~lib/context/contextProvider';
+import { useTranslation } from 'next-i18next';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
+import { ApiErrorElement } from '~elements/error/apiError';
 import { clientCookies } from '~utils';
 import { COOKIES } from '~constants';
-import { IUserContextData } from '~types';
-import { ApiErrorElement } from '~elements/error/apiError';
+import { IUserProfile } from '~types';
 
 export const LoggedMenuElement: FC = (): ReactElement => {
     const router = useRouter();
-    const { profile } = useStore() as IUserContextData;
+    const { t } = useTranslation();
+    const profile = useQueryData<IUserProfile>(QUERY_KEYS.GET_USER_PROFILE);
 
     if (profile === null) {
         return <ApiErrorElement />;
@@ -29,7 +31,7 @@ export const LoggedMenuElement: FC = (): ReactElement => {
             <li>
                 <Link href = '#'>
                     <a className = 'upload_btn' title = 'Create New Course'>
-                        Create New Course
+                        { t('common:createNewCourse') }
                     </a>
                 </Link>
             </li>
@@ -53,7 +55,7 @@ export const LoggedMenuElement: FC = (): ReactElement => {
                         className = 'opts_account log_out _5f7g11'
                         onClick = { handler }
                     >
-                        Log out
+                        { t('common:logOut') }
                     </a>
                 </Link>
             </li>

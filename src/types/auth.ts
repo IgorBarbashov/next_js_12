@@ -18,7 +18,6 @@ export interface IRegisterForm {
 export interface IAuthStatusObject {
     isLogged: boolean;
     token: TStringOrNull;
-    profile: IUserProfile | null;
     errorMessage: TStringOrNull;
 }
 

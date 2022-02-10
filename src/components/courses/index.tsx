@@ -1,12 +1,13 @@
 import { FC, ReactElement } from 'react';
 import { CourseCardElement } from '~elements/courseCard';
 import { ApiErrorElement } from '~elements/error/apiError';
-import { useStore } from '~lib/context/contextProvider';
-import { ICoursesContextData } from '~types';
+import { ICourse } from '~types';
 
-export const CoursesComponent: FC = (): ReactElement => {
-    const { courses } = useStore() as ICoursesContextData;
+interface ICoursesComponentProps {
+    courses: ICourse[] | null;
+}
 
+export const CoursesComponent: FC<ICoursesComponentProps> = ({ courses }): ReactElement => {
     if (courses === null) {
         return <ApiErrorElement />;
     }
