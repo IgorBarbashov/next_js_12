@@ -1,17 +1,13 @@
 import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
-import { AuthService, UserService } from '~services';
+import { AuthService } from '~services';
 import { COOKIES } from '~constants';
 import { IAuthStatusObject } from '~types';
 import { serverSideCookies } from './cookieUtils';
 
-const authService = new AuthService();
-const userService = new UserService();
-
 const defaultAuthStatusObject: IAuthStatusObject = {
     isLogged: false,
     token: null,
-    profile: null,
     errorMessage: 'Unauthorized',
 };
 
@@ -24,7 +20,8 @@ const resetAuthData = (ctx: GetServerSidePropsContext): void => {
     axios.defaults.headers.common.Authorization = '';
 };
 
-export const getAuthData = async (ctx: GetServerSidePropsContext, getProfile = true): Promise<IAuthStatusObject> => {
+export const getAuthData = async (ctx: GetServerSidePropsContext): Promise<IAuthStatusObject> => {
+    const authService = new AuthService();
     const authStatusObject = { ...defaultAuthStatusObject };
 
     const token = serverSideCookies.getCookie(ctx, COOKIES.JWT_TOKEN);
@@ -42,15 +39,6 @@ export const getAuthData = async (ctx: GetServerSidePropsContext, getProfile = t
     } catch (e) {
         resetAuthData(ctx);
         return defaultAuthStatusObject;
-    }
-
-    if (getProfile) {
-        try {
-            const { data } = await userService.getProfile();
-            authStatusObject.profile = data?.data ?? null;
-        } catch (e) {
-            authStatusObject.errorMessage = 'Get profile error';
-        }
     }
 
     return authStatusObject;

@@ -2,12 +2,16 @@ import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
-import { useStore } from '~lib/context/contextProvider';
+import { useRouter } from 'next/router';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 import { formatDate } from '~utils';
-import { ICourse, ICourseContextData } from '~types';
+import { ICourse, IGetCourseProps } from '~types';
 
 export const CourseHeaderElement: FC = (): ReactElement => {
-    const { course } = useStore() as ICourseContextData;
+    const { query: { slug = '' } } = useRouter();
+    const course = useQueryData<ICourse, IGetCourseProps>(
+        [QUERY_KEYS.INCREASE_VIEWS_COUNT_AND_GET_COURSE, slug as string],
+    );
     const { t } = useTranslation();
 
     const {

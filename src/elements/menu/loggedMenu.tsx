@@ -3,17 +3,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useStore } from '~lib/context/contextProvider';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
+import { ApiErrorElement } from '~elements/error/apiError';
 import { clientCookies } from '~utils';
 import { COOKIES } from '~constants';
-import { IUserContextData } from '~types';
-import { ApiErrorElement } from '~elements/error/apiError';
+import { IUserProfile } from '~types';
 
 export const LoggedMenuElement: FC = (): ReactElement => {
     const router = useRouter();
     const { t } = useTranslation();
-
-    const { profile } = useStore() as IUserContextData;
+    const profile = useQueryData<IUserProfile>(QUERY_KEYS.GET_USER_PROFILE);
 
     if (profile === null) {
         return <ApiErrorElement />;

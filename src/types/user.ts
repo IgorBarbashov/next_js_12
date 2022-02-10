@@ -9,6 +9,7 @@ export interface IUserProfile {
     avatar: string;
 }
 
+export type TUserProfileResponseData = { data: IUserProfile };
 export type TUserProfileResponse = TResponse<IUserProfile>;
 
 export interface IUserContextData {

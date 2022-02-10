@@ -1,10 +1,11 @@
 import { CoursesComponent } from '~components/courses';
 import { useTranslation } from 'next-i18next';
-import { useStore } from '~lib/context/contextProvider';
-import { ICoursesContextData } from '~types';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
+import { ICourse, IGetCoursesProps } from '~types';
 
 export const TeacherCoursesElement = () => {
-    const { courses } = useStore() as ICoursesContextData;
+    const courses = useQueryData<ICourse[], IGetCoursesProps>(QUERY_KEYS.GET_ALL_COURSES);
+
     const { t } = useTranslation();
     const coursesCount = courses?.length;
 

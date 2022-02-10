@@ -1,11 +1,10 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { useStore } from '~lib/context/contextProvider';
-import { ICommonContextData } from '~types';
+import { useRouter } from 'next/router';
 
 export const TeacherTabsElement: FC = (): ReactElement => {
-    const { slug = '' } = useStore() as ICommonContextData;
+    const { query: { slug = '' } } = useRouter();
     const { t } = useTranslation();
 
     const tabs = [

@@ -17,7 +17,13 @@ export class AuthService {
         axios.post(`${BASE_URL}${ENTITY}${LOGIN}`, { email, password })
     );
 
-    checkToken = (): TVoidResponse => axios.get(`${BASE_URL}${ENTITY}${AUTH}`);
+    checkToken = async () => {
+        try {
+            await axios.get(`${BASE_URL}${ENTITY}${AUTH}`);
+        } catch (e) {
+            throw new Error();
+        }
+    };
 
     logout = (): TVoidResponse => axios.get(`${BASE_URL}${ENTITY}${LOGOUT}`);
 }

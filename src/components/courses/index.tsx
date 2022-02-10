@@ -1,11 +1,11 @@
 import { FC, ReactElement } from 'react';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 import { CourseCardElement } from '~elements/courseCard';
 import { ApiErrorElement } from '~elements/error/apiError';
-import { useStore } from '~lib/context/contextProvider';
-import { ICoursesContextData } from '~types';
+import { ICourse, IGetCoursesProps } from '~types';
 
 export const CoursesComponent: FC = (): ReactElement => {
-    const { courses } = useStore() as ICoursesContextData;
+    const courses = useQueryData<ICourse[], IGetCoursesProps>(QUERY_KEYS.GET_ALL_COURSES);
 
     if (courses === null) {
         return <ApiErrorElement />;

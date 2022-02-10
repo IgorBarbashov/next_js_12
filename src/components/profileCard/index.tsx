@@ -2,12 +2,12 @@ import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslation } from 'next-i18next';
-import { useStore } from '~lib/context/contextProvider';
-import { IUserContextData } from '~types';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 import { ApiErrorElement } from '~elements/error/apiError';
+import { IUserProfile } from '~types';
 
 export const ProfileCardComponent: FC = (): ReactElement => {
-    const { profile } = useStore() as IUserContextData;
+    const profile = useQueryData<IUserProfile>(QUERY_KEYS.GET_USER_PROFILE);
     const { t } = useTranslation();
 
     if (profile === null) {

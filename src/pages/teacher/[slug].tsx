@@ -5,19 +5,20 @@ import {
 import Head from 'next/head';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { SSRConfig, useTranslation } from 'next-i18next';
+import { QueryClient } from 'react-query';
 import { AppView } from '~views/app';
 import { HeaderComponent } from '~components/header';
 import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
-import { TeacherService } from '~services';
-import { useStore } from '~lib/context/contextProvider';
+import { TeacherService, UserService } from '~services';
 import { getAuthData, getLocale, redirectObject } from '~utils';
-import {
-    TUserContext, IUserDynamicPathSegment, TCoursesContext, ICommonContextData,
-} from '~types';
+import { IDehydratedState } from '~types';
+import { dehydrate } from 'react-query/hydration';
+import { useRouter } from 'next/router';
+import { QUERY_KEYS } from '~lib/reactQuery/queryClient';
 
 const TeacherPage: NextPage = (): ReactElement => {
-    const { slug } = useStore() as ICommonContextData;
+    const { query: { slug = '' } } = useRouter();
     const { t } = useTranslation();
 
     return (
@@ -34,36 +35,27 @@ const TeacherPage: NextPage = (): ReactElement => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<(TCoursesContext | TUserContext) & SSRConfig, IUserDynamicPathSegment> =
-    async (
-        ctx: GetServerSidePropsContext<IUserDynamicPathSegment>,
-    ): Promise<GetServerSidePropsResult<(TCoursesContext | TUserContext
-) & SSRConfig>> => {
-        const { isLogged, profile } = await getAuthData(ctx);
-        if (!isLogged) {
-            return redirectObject({ destination: '/login' });
-        }
+export const getServerSideProps: GetServerSideProps<SSRConfig & IDehydratedState> = async (
+    ctx: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<SSRConfig & IDehydratedState>> => {
+    const { isLogged } = await getAuthData(ctx);
+    if (!isLogged) {
+        return redirectObject({ destination: '/login' });
+    }
 
-        let courses = null;
-        const teacherService = new TeacherService();
-        try {
-            const { data } = await teacherService.getCourses();
-            courses = data?.data || null;
-        } catch (e) {
-            process.stderr.write('API error');
-        }
+    const userService = new UserService();
+    const teacherService = new TeacherService();
+    const queryClient = new QueryClient();
 
-        return {
-            props: {
-                contextData: {
-                    isLogged,
-                    slug: ctx.params?.slug ?? '',
-                    profile,
-                    courses,
-                },
-                ...await serverSideTranslations(getLocale(ctx), ['common']),
-            },
-        };
+    await queryClient.prefetchQuery(QUERY_KEYS.GET_TEACHER_COURSES, () => teacherService.getCourses());
+    await queryClient.prefetchQuery(QUERY_KEYS.GET_USER_PROFILE, () => userService.getProfile());
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+            ...await serverSideTranslations(getLocale(ctx), ['common']),
+        },
     };
+};
 
 export default TeacherPage;

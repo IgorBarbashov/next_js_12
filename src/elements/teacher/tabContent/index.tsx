@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
-import { useStore } from '~lib/context/contextProvider';
-import { ICommonContextData } from '~types';
+import { useRouter } from 'next/router';
 import { TeacherAboutElement } from './about';
 import { TeacherCoursesElement } from './courses';
 
@@ -9,7 +8,7 @@ interface ITabs {
 }
 
 export const TeacherTabContentElement = () => {
-    const { slug = '' } = useStore() as ICommonContextData;
+    const { query: { slug = '' } } = useRouter();
 
     const tabs: ITabs = {
         about: <TeacherAboutElement />,
@@ -23,7 +22,7 @@ export const TeacherTabContentElement = () => {
                     <div className = 'col-lg-12'>
                         <div className = 'course_tab_content'>
                             <div className = 'tab-content' id = 'nav-tabContent'>
-                                { tabs[slug] }
+                                { tabs[slug as string] }
                             </div>
                         </div>
                     </div>

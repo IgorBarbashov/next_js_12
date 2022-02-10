@@ -1,6 +1,7 @@
 import { ParsedUrlQuery } from 'querystring';
 import { TResponse } from './api';
 import { TContext } from './context';
+import { TStringOrNumber } from './common';
 
 export interface ICourseInfo {
     requirements: string[];
@@ -25,7 +26,18 @@ export interface ICourse {
     created: string;
 }
 
-export type TGetCoursesResponse = TResponse<ICourse[]>;
+export interface IGetCoursesProps {
+    page?: number;
+    limit?: number;
+}
+
+export interface IGetCourseProps {
+    id: TStringOrNumber;
+}
+
+export type TGetCoursesResponseData = { data: ICourse[]};
+export type TGetCoursesResponse = TResponse<TGetCoursesResponseData>;
+export type TGetCourseResponseData = { data: ICourse};
 export type TGetCourseResponse = TResponse<ICourse>;
 export type TPutViewsResponse = TGetCourseResponse;
 

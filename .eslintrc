@@ -20,7 +20,8 @@
     "next/core-web-vitals"
   ],
   "plugins": [
-    "prefer-arrow"
+    "prefer-arrow",
+    "eslint-plugin-typescript"
   ],
   "settings": {
     "react": {
@@ -119,6 +120,7 @@
           "=": "after"
         }
       }
-    ]
+    ],
+    "no-return-await": "off"
   }
 }

@@ -1,11 +1,15 @@
 import { FC, ReactElement } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useStore } from '~lib/context/contextProvider';
-import { ICourse, ICourseContextData } from '~types';
+import { useRouter } from 'next/router';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
+import { ICourse, IGetCourseProps } from '~types';
 
 export const CourseTeacherElement: FC = (): ReactElement => {
-    const { course } = useStore() as ICourseContextData;
+    const { query: { slug = '' } } = useRouter();
+    const course = useQueryData<ICourse, IGetCourseProps>(
+        [QUERY_KEYS.INCREASE_VIEWS_COUNT_AND_GET_COURSE, slug as string],
+    );
     const { createdBy } = course as ICourse;
 
     return (
