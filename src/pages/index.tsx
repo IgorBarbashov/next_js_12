@@ -16,20 +16,18 @@ import { FooterComponent } from '~components/footer';
 import { CoursesComponent } from '~components/courses';
 import { CourseService, UserService } from '~services';
 import { getAuthData, getLocale } from '~utils';
-import { IDehydratedState, TContext } from '~types';
-import { QUERY_KEYS } from '~lib/reactQuery/queryClient';
+import {
+    ICommonContextData, ICourse, IDehydratedState, IGetCoursesProps, TContext,
+} from '~types';
+import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 
 const Home: NextPage = (): ReactElement => {
-    const contextData = useStore();
-
-    let isLogged = false;
-    if ('isLogged' in contextData) {
-        isLogged = contextData.isLogged ?? false;
-    }
+    const { isLogged } = useStore() as ICommonContextData;
+    const courses = useQueryData<ICourse[], IGetCoursesProps>(QUERY_KEYS.GET_ALL_COURSES);
 
     const contentJSX = (
         <ContentView
-            content = { <CoursesComponent /> }
+            content = { <CoursesComponent courses = { courses } /> }
             sider = { isLogged ? <ProfileCardComponent /> : null }
         />
     );

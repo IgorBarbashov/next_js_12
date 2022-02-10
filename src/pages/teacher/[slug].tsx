@@ -12,7 +12,7 @@ import { TeacherComponent } from '~components/teacher';
 import { FooterComponent } from '~components/footer';
 import { TeacherService, UserService } from '~services';
 import { getAuthData, getLocale, redirectObject } from '~utils';
-import { IDehydratedState } from '~types';
+import { IDehydratedState, TContext } from '~types';
 import { dehydrate } from 'react-query/hydration';
 import { useRouter } from 'next/router';
 import { QUERY_KEYS } from '~lib/reactQuery/queryClient';
@@ -35,9 +35,9 @@ const TeacherPage: NextPage = (): ReactElement => {
     );
 };
 
-export const getServerSideProps: GetServerSideProps<SSRConfig & IDehydratedState> = async (
+export const getServerSideProps: GetServerSideProps<TContext & SSRConfig & IDehydratedState> = async (
     ctx: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<SSRConfig & IDehydratedState>> => {
+): Promise<GetServerSidePropsResult<TContext & SSRConfig & IDehydratedState>> => {
     const { isLogged } = await getAuthData(ctx);
     if (!isLogged) {
         return redirectObject({ destination: '/login' });
@@ -52,6 +52,9 @@ export const getServerSideProps: GetServerSideProps<SSRConfig & IDehydratedState
 
     return {
         props: {
+            contextData: {
+                isLogged,
+            },
             dehydratedState: dehydrate(queryClient),
             ...await serverSideTranslations(getLocale(ctx), ['common']),
         },

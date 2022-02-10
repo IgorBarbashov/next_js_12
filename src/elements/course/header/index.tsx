@@ -11,6 +11,7 @@ export const CourseHeaderElement: FC = (): ReactElement => {
     const { query: { slug = '' } } = useRouter();
     const course = useQueryData<ICourse, IGetCourseProps>(
         [QUERY_KEYS.INCREASE_VIEWS_COUNT_AND_GET_COURSE, slug as string],
+        { id: slug as string },
     );
     const { t } = useTranslation();
 

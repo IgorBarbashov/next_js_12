@@ -5,5 +5,6 @@ type PropsType = GetStaticPropsContext | GetServerSidePropsContext;
 
 export const getLocale = (ctx: PropsType): string => {
     const { locale, defaultLocale } = ctx;
-    return locale || defaultLocale || i18n.defaultLocale;
+    const loc = locale || defaultLocale || i18n.defaultLocale;
+    return loc;
 };

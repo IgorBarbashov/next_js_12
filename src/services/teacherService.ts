@@ -7,7 +7,12 @@ const { TEACHER: { ENTITY, COURSES } } = API_PATHS;
 
 export class TeacherService {
     getCourses = async ({ page, limit }: IGetCoursesProps = {}) => {
-        const query = qs.stringify({ page, limit });
-        return axios.get(`${BASE_URL}${ENTITY}${COURSES}?${query}`);
+        try {
+            const query = qs.stringify({ page, limit });
+            const { data } = await axios.get(`${BASE_URL}${ENTITY}${COURSES}?${query}`);
+            return data;
+        } catch (err) {
+            throw new Error();
+        }
     };
 }

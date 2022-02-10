@@ -1,12 +1,13 @@
 import { FC, ReactElement } from 'react';
-import { QUERY_KEYS, useQueryData } from '~lib/reactQuery/queryClient';
 import { CourseCardElement } from '~elements/courseCard';
 import { ApiErrorElement } from '~elements/error/apiError';
-import { ICourse, IGetCoursesProps } from '~types';
+import { ICourse } from '~types';
 
-export const CoursesComponent: FC = (): ReactElement => {
-    const courses = useQueryData<ICourse[], IGetCoursesProps>(QUERY_KEYS.GET_ALL_COURSES);
+interface ICoursesComponentProps {
+    courses: ICourse[] | null;
+}
 
+export const CoursesComponent: FC<ICoursesComponentProps> = ({ courses }): ReactElement => {
     if (courses === null) {
         return <ApiErrorElement />;
     }

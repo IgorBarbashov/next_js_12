@@ -58,6 +58,7 @@ export const useQueryData = <T, Q = TAnyObject>(
         // @ts-ignore
         () => config.queryFn(queryFnProps),
         {
+            staleTime: Infinity,
             refetchInterval: false,
             retry: false,
             // @ts-ignore
